@@ -4,6 +4,9 @@ import _ from 'underscore';
 import ProjectHeaderContainer from '../../containers/ProjectHeaderContainer';
 import ProjectFooterContainer from '../../../projects/containers/ProjectFooterContainer';
 
+import ProjectVisualization from './sections/ProjectVisualization';
+
+
 import './ProjectHome.css';
 import '../../../home/components/Home/Home.css';
 
@@ -50,6 +53,7 @@ const ProjectHome = props => {
 			{/* Header */}
 			<ProjectHeaderContainer />
 
+			<ProjectVisualization />
 
 			{/* Footer */}
 			<ProjectFooterContainer />

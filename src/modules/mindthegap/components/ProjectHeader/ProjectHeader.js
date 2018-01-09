@@ -24,7 +24,12 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 	return (
 		<div>
 			<LeftMenu project={project} />
-			<Headroom className="navbar projectNavbar">
+			<Headroom
+				className="navbar projectNavbar"
+				style={{
+					background: '#fff',
+				}}
+			>
 				<div className="nav-header">
 					<i
 						className="mdi mdi-menu left-menu-toggle-icon"
