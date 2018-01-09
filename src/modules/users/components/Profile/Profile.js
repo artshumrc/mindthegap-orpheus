@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import ProfileNav from '../ProfileNav';
+// import ProfileNav from '../ProfileNav';
 import { required, maxLength } from '../../../../lib/formHelpers';
 
 import './Profile.css';
@@ -15,8 +15,6 @@ class Profile extends React.Component {
 	render() {
 		return (
 			<div className="profile">
-				<ProfileNav />
-
 				<form
 					className="profileForm"
 					onSubmit={this.props.handleSubmit}

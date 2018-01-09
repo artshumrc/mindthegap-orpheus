@@ -2,15 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 
 import ProjectHeaderContainer from '../../containers/ProjectHeaderContainer';
-import ProjectFooterContainer from '../../containers/ProjectFooterContainer';
-import ProjectCoverContainer from '../../containers/ProjectCoverContainer';
-
-import ProjectAbout from './sections/ProjectAbout';
-import ProjectCollections from './sections/ProjectCollections';
-import ProjectFeatured from './sections/ProjectFeatured';
-import ProjectPeople from './sections/ProjectPeople';
-import ProjectVisit from './sections/ProjectVisit';
-
+import ProjectFooterContainer from '../../../projects/containers/ProjectFooterContainer';
 
 import './ProjectHome.css';
 import '../../../home/components/Home/Home.css';
@@ -58,27 +50,6 @@ const ProjectHome = props => {
 			{/* Header */}
 			<ProjectHeaderContainer />
 
-			{/* Project home content */}
-			<ProjectCoverContainer />
-			<ProjectFeatured
-				items={featuredItems}
-			/>
-			<ProjectAbout
-				description={props.description}
-			/>
-			<ProjectCollections
-				collections={featuredCollections}
-			/>
-			<ProjectPeople
-				people={props.users}
-			/>
-			<ProjectVisit
-				title={props.title}
-				email={props.email}
-				url={props.url}
-				address={props.address}
-				phone={props.phone}
-			/>
 
 			{/* Footer */}
 			<ProjectFooterContainer />

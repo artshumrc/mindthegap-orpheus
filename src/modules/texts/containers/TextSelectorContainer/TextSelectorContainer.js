@@ -3,6 +3,7 @@ import { compose } from 'react-apollo';
 
 
 import textSelectorQuery from '../../graphql/queries/textSelector';
+import textListQuery from '../../graphql/queries/list';
 import TextSelector from '../../components/TextSelector';
 
 
@@ -41,5 +42,5 @@ const TextSelectorContainer = props => {
 
 
 export default compose(
-	textSelectorQuery,
+	textSelectorQuery, textListQuery,
 )(TextSelectorContainer);

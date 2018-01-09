@@ -1,8 +1,6 @@
 import React from 'react';
 
-import ReleaseMessage from '../../../../components/common/ReleaseMessage';
-
-import ProjectHeaderContainer from '../../containers/ProjectHeaderContainer';
+import ProjectHeaderContainer from '../../../mindthegap/containers/ProjectHeaderContainer';
 import ProjectFooterContainer from '../../containers/ProjectFooterContainer';
 
 import './ProjectLayout.css';
@@ -12,7 +10,6 @@ const ProjectLayout = props => (
 		<ProjectHeaderContainer />
 		{props.children}
 		<ProjectFooterContainer />
-		<ReleaseMessage />
 	</div>
 );
 

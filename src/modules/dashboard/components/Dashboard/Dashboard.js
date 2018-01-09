@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DashboardCounts from '../DashboardCounts';
-import DashboardNav from '../DashboardNav';
+import DashboardCounts from '../../../mindthegap/components/DashboardCounts';
+import DashboardNav from '../../../mindthegap/components/DashboardNav';
 import DashboardRecentActivity from '../DashboardRecentActivity';
 
 

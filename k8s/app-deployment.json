@@ -2,9 +2,9 @@
   "kind": "Deployment",
   "apiVersion": "extensions/v1beta1",
   "metadata": {
-    "name": "orpheus-deployment",
+    "name": "mindthegap-orpheus-deployment",
     "labels": {
-      "name": "orpheus-deployment"
+      "name": "mindthegap-orpheus-deployment"
     }
   },
   "spec": {
@@ -12,14 +12,14 @@
     "template": {
       "metadata": {
         "labels": {
-          "name": "orpheus-pod"
+          "name": "mindthegap-orpheus-pod"
         }
       },
       "spec": {
         "containers": [
           {
-            "name": "orpheus-container",
-            "image": "us.gcr.io/archimedes-01201/orpheus:NEW_IMAGE_TAG",
+            "name": "mindthegap-orpheus-container",
+            "image": "us.gcr.io/archimedes-01201/mindthegap-orpheus:NEW_IMAGE_TAG",
             "env": [
               {
                 "name": "NODE_ENV",

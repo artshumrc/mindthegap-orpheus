@@ -1,14 +1,14 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: orpheus-ingress
+  name: mindthegap-orpheus-ingress
 spec:
   tls:
-  - secretName: orpheus-certchain
+  - secretName: mindthegap-orpheus-certchain
   rules:
   - host: orphe.us
     http:
       paths:
       - backend:
-          serviceName: orpheus-service
+          serviceName: mindthegap-orpheus-service
           servicePort: 3000

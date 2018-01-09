@@ -10,7 +10,6 @@ import LifetimeData from './sections/LifetimeData';
 import PermissionsSection from './sections/PermissionsSection';
 // import ExploreOrDemo from './sections/ExploreOrDemo';
 import ReadyToStart from './sections/ReadyToStart';
-import ReleaseMessage from '../../../../components/common/ReleaseMessage';
 
 class Home extends React.Component {
 	render() {
@@ -34,7 +33,6 @@ class Home extends React.Component {
 
 				<ReadyToStart />
 				<Footer />
-				<ReleaseMessage />
 			</div>
 		);
 	}

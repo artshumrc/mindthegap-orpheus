@@ -1,0 +1,6 @@
+{
+  "name": "ProjectHome",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ProjectHome.js"
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Home
-import homeRoute from '../modules/home/routes';
+import homeRoute from '../modules/mindthegap/routes';
 
 // Articles
 import articleRoutes from '../modules/articles/routes';
@@ -16,7 +16,7 @@ import itemRoutes from '../modules/items/routes';
 import pageRoutes from '../modules/pages/routes';
 
 // Projects
-import projectRoutes from '../modules/projects/routes';
+// import projectRoutes from '../modules/projects/routes';
 
 // Dashboard
 import dashboardRoutes from '../modules/dashboard/routes';
@@ -52,7 +52,7 @@ export default (
 		{userRoutes}
 
 		{/* Routes specific to projects (and collections and items) */}
-		{projectRoutes}
+		{/* projectRoutes */}
 
 		{/* Routes for single pages */}
 		{pageRoutes}
