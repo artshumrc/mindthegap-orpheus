@@ -1,5 +1,8 @@
 import React from 'react';
 
+import './CoverBackground.css';
+
+
 class CoverBackground extends React.Component {
 
 	constructor(props) {

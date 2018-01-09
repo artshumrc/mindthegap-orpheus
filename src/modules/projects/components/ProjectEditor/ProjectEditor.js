@@ -30,7 +30,7 @@ class ProjectEditor extends React.Component {
 							name="title"
 							type="text"
 							component="input"
-							placeholder="Your Organization or Project"
+							placeholder=""
 							validate={[required, maxLength200]}
 						/>
 						<span
@@ -46,7 +46,7 @@ class ProjectEditor extends React.Component {
 							name="subtitle"
 							type="text"
 							component="input"
-							placeholder="E.g. 16th and 17th century manuscripts"
+							placeholder=""
 							validate={[maxLength200]}
 						/>
 						<span
@@ -72,6 +72,7 @@ class ProjectEditor extends React.Component {
 						</span>
 					</div>
 
+					{/*
 					<div
 						className="
 							projectNameAvailabilityFormInputOuter
@@ -106,6 +107,7 @@ class ProjectEditor extends React.Component {
 							</span>
 						</div>
 					</div>
+					*/}
 
 					<div className="projectEditorFormInputOuter projectEditorFormStatusOuter">
 						<div>
@@ -137,6 +139,7 @@ class ProjectEditor extends React.Component {
 						</span>
 					</div>
 
+					{/*
 					<div className="projectEditorFormInputOuter ">
 						<label>Enter the website of the project (if there is one).</label>
 						<Field
@@ -185,6 +188,7 @@ class ProjectEditor extends React.Component {
 							?
 						</span>
 					</div>
+					*/}
 
 
 					<button

@@ -39,6 +39,7 @@ class Cover extends React.Component {
 		if (height < 260) {
 			height = 260;
 		}
+		height = 260;
 
 		if (left) {
 			classes.push('cover--left');

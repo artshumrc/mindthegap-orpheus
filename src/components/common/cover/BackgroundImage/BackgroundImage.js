@@ -14,7 +14,7 @@ const BackgroundImage = ({ src }) => {
 	if (src) {
 		styles.backgroundImage = `url(${src})`;
 	} else {
-		styles.backgroundColor = 'rgba(0, 0, 0, 0.04)';
+		styles.backgroundColor = 'rgba(0, 0, 0, 0.0)';
 	}
 
 	return (
