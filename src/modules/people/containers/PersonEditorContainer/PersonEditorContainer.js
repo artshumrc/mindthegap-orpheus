@@ -4,11 +4,11 @@ import autoBind from 'react-autobind';
 import { arrayMove } from 'react-sortable-hoc';
 
 import PersonEditor from '../../components/PersonEditor';
-import itemListQuery from '../../graphql/queries/list';
-import itemDetailQuery from '../../graphql/queries/detail';
-import itemCreateMutation from '../../graphql/mutations/create';
-import itemUpdateMutation from '../../graphql/mutations/update';
-import itemRemoveMutation from '../../graphql/mutations/remove';
+import personListQuery from '../../graphql/queries/list';
+import personDetailQuery from '../../graphql/queries/detail';
+import personCreateMutation from '../../graphql/mutations/create';
+import personUpdateMutation from '../../graphql/mutations/update';
+import personRemoveMutation from '../../graphql/mutations/remove';
 
 
 class PersonEditorContainer extends React.Component {
@@ -19,6 +19,9 @@ class PersonEditorContainer extends React.Component {
 		this.state = {
 			files: [],
 			metadataFieldsExtra: [],
+			selectedItems: [],
+			selectedEvents: [],
+			selectedInterviews: [],
 		};
 	}
 
@@ -28,19 +31,19 @@ class PersonEditorContainer extends React.Component {
 				!this.state.files
 			|| !this.state.files.length
 			)
-			&& nextProps.itemQuery
-			&& nextProps.itemQuery.project
-			&& nextProps.itemQuery.project.item
-			&& nextProps.itemQuery.project.item.files
+			&& nextProps.personQuery
+			&& nextProps.personQuery.project
+			&& nextProps.personQuery.project.person
+			&& nextProps.personQuery.project.person.files
 		) {
 			this.setState({
-				files: nextProps.itemQuery.project.item.files
+				files: nextProps.personQuery.project.person.files
 			});
 		}
 	}
 
 	handleSubmit(_values) {
-		const { itemCreate, itemUpdate, router } = this.props;
+		const { personCreate, personUpdate, router } = this.props;
 		const _files = this.state.files;
 		const values = Object.assign({}, _values);
 
@@ -58,7 +61,7 @@ class PersonEditorContainer extends React.Component {
 				// default type
 				let type = 'text';
 
-				// default value (files/items handled by extra state)
+				// default value (files/persons handled by extra state)
 				let value = metadataField.value;
 
 				// set type from metadata redux form
@@ -105,17 +108,17 @@ class PersonEditorContainer extends React.Component {
 
 		// create or update
 		if ('_id' in values) {
-			itemUpdate(values, files)
+			personUpdate(values, files)
 				.then((response) => {
-					router.replace(`/items/${values._id}/${values.slug}`);
+					router.replace(`/persons/${values._id}/${values.slug}`);
 				})
 				.catch((err) => {
 					console.error(err);
 				});
 		} else {
-			itemCreate(values, files)
+			personCreate(values, files)
 				.then((response) => {
-					router.replace('/items/');
+					router.replace('/persons/');
 				})
 				.catch((err) => {
 					console.error(err);
@@ -123,12 +126,12 @@ class PersonEditorContainer extends React.Component {
 		}
 	}
 
-	handleRemove(itemId) {
-		const { itemRemove, router } = this.props;
+	handleRemove(personId) {
+		const { personRemove, router } = this.props;
 
-		itemRemove(itemId)
+		personRemove(personId)
 			.then((response) => {
-				router.replace('/items');
+				router.replace('/persons');
 			})
 			.catch((err) => {
 				console.error(err);
@@ -191,36 +194,92 @@ class PersonEditorContainer extends React.Component {
 		});
 	}
 
+	toggleSelectedItem(item) {
+		const selectedItems = this.state.selectedItems.slice();
+
+		if (selectedItems.some(selectedItem => selectedItem._id === item._id)) {
+			selectedItems.splice(
+				selectedItems.findIndex(selectedItem => selectedItem._id === item._id),
+				1
+			);
+		} else {
+			selectedItems.push(item);
+		}
+
+		this.setState({
+			selectedItems,
+		});
+	}
+
+	toggleSelectedEvent(event) {
+		const selectedEvents = this.state.selectedEvents.slice();
+
+		if (selectedEvents.some(selectedEvent => selectedEvent._id === event._id)) {
+			selectedEvents.splice(
+				selectedEvents.findIndex(selectedEvent => selectedEvent._id === event._id),
+				1
+			);
+		} else {
+			selectedEvents.push(event);
+		}
+
+		this.setState({
+			selectedEvents,
+		});
+	}
+
+	toggleSelectedInterview(interview) {
+		const selectedInterviews = this.state.selectedInterviews.slice();
+
+		if (selectedInterviews.some(selectedInterview => selectedInterview._id === interview._id)) {
+			selectedInterviews.splice(
+				selectedInterviews.findIndex(selectedInterview => selectedInterview._id === interview._id),
+				1
+			);
+		} else {
+			selectedInterviews.push(interview);
+		}
+
+		this.setState({
+			selectedInterviews,
+		});
+	}
 
 	render() {
-		const { files } = this.state;
+		const { files, selectedItems, selectedEvents, selectedInterviews } = this.state;
 
-		let item;
+		let person;
 
 		if (
-			this.props.itemQuery
-			&& this.props.itemQuery.project
+			this.props.personQuery
+			&& this.props.personQuery.project
 		) {
-			item = this.props.itemQuery.project.item;
+			person = this.props.personQuery.project.person;
 		}
 
 		return (
 			<PersonEditor
 				onSubmit={this.handleSubmit}
 				onRemove={this.handleRemove}
-				initialValues={item}
+				initialValues={person}
 				files={files}
 				addFile={this.addFile}
 				removeFile={this.removeFile}
 				onSortEnd={this.onSortEnd}
 				updateFile={this.updateFile}
 				handleUpdateMetadata={this.updateMetadata}
+				selectedItems={selectedItems}
+				toggleSelectedItem={this.toggleSelectedItem}
+				selectedEvents={selectedEvents}
+				toggleSelectedEvent={this.toggleSelectedEvent}
+				selectedInterviews={selectedInterviews}
+				toggleSelectedInterview={this.toggleSelectedInterview}
 			/>
 		);
 	}
 }
 
 export default compose(
-	itemCreateMutation, itemUpdateMutation, itemRemoveMutation, itemDetailQuery,
-	itemListQuery,
+	personCreateMutation, personUpdateMutation, personRemoveMutation, personDetailQuery,
+	personListQuery,
 )(PersonEditorContainer);

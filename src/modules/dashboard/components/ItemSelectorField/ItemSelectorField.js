@@ -13,13 +13,21 @@ import './ItemSelectorField.css';
 const maxLength2100 = maxLength(2100);
 
 
-const ItemSelectorField = ({ selectedItems, toggleSelectedItem }) => (
+const ItemSelectorField = ({ collectionName, selectedItems, toggleSelectedItem }) => (
 	<div className="itemSelector">
 		<Row>
 			<Col md={6}>
 				<div className="itemSelectorItems">
 					<label>
-						Project Items <Link to="/items/create">Create a new item</Link>
+						{collectionName === 'items' ?
+							<span>Items <Link to="/items/create">Create a new item</Link></span>
+						: ''}
+						{collectionName === 'events' ?
+							<span>Events <Link to="/events/create">Create a new event</Link></span>
+						: ''}
+						{collectionName === 'interviews' ?
+							<span>Interviews <Link to="/interviews/create">Create a new interview</Link></span>
+						: ''}
 					</label>
 					<div className="itemSelectorTextsearch">
 						<Field
