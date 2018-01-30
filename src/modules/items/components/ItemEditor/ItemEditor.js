@@ -44,7 +44,7 @@ class ItemEditor extends React.Component {
 							name="title"
 							type="text"
 							component="input"
-							placeholder="Your item title"
+							placeholder="The item title"
 							validate={[required, maxLength200]}
 						/>
 						<span
@@ -55,7 +55,7 @@ class ItemEditor extends React.Component {
 					</div>
 
 					<div className="itemEditorFormInputOuter itemEditorFormDescriptionOuter">
-						<label>Enter a description of your item.</label>
+						<label>Enter a description of the item.</label>
 						<Field
 							name="description"
 							type="text"

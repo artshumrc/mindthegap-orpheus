@@ -7,26 +7,26 @@ import EventListItem from '../EventListItem';
 import './EventList.css';
 
 
-const EventList = ({ items, horizontal }) => {
+const EventList = ({ events, horizontal }) => {
 	const classes = [];
 
 
 	if (horizontal) {
-		classes.push('itemListHorizontal');
+		classes.push('eventListHorizontal');
 	}
 
 	return (
-		<div className={`itemList ${classes.join(' ')}`}>
-			{items.map((listItem, i) => (
+		<div className={`eventList ${classes.join(' ')}`}>
+			{events.map((listItem, i) => (
 				<EventListItem
 					key={`${listItem.slug}-${i}`}
 					{...listItem}
 				/>
 			))}
 
-			{!items || !items.length ?
+			{!events || !events.length ?
 				<NoResults
-					message="No items have been added to this collection yet."
+					message="No events have been added to this collection yet."
 				/>
 			: ''}
 		</div>
@@ -34,11 +34,11 @@ const EventList = ({ items, horizontal }) => {
 };
 
 EventList.propTypes = {
-	items: PropTypes.array,
+	events: PropTypes.array,
 };
 
 EventList.defaultProps = {
-	items: [],
+	events: [],
 };
 
 export default EventList;

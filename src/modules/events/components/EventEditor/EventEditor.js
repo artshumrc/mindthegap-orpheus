@@ -23,7 +23,7 @@ class ItemEditor extends React.Component {
 			<div className="itemEditor">
 
 				<div className="itemEditorHead">
-					<h1>{item ? 'Edit' : 'Create'} Item</h1>
+					<h1>{item ? 'Edit' : 'Create'} Event</h1>
 
 					<ItemEditorUploader
 						files={files}
@@ -44,7 +44,55 @@ class ItemEditor extends React.Component {
 							name="title"
 							type="text"
 							component="input"
-							placeholder="Your item title"
+							placeholder="The event's title"
+							validate={[required, maxLength200]}
+						/>
+						<span
+							className="itemEditorFormHelp"
+						>
+							?
+						</span>
+					</div>
+
+					<div className="itemEditorFormInputOuter ">
+						<label>Start date:</label>
+						<Field
+							name="title"
+							type="text"
+							component="input"
+							placeholder="The event's start date"
+							validate={[required, maxLength200]}
+						/>
+						<span
+							className="itemEditorFormHelp"
+						>
+							?
+						</span>
+					</div>
+
+					<div className="itemEditorFormInputOuter ">
+						<label>End date:</label>
+						<Field
+							name="title"
+							type="text"
+							component="input"
+							placeholder="The event's end date"
+							validate={[required, maxLength200]}
+						/>
+						<span
+							className="itemEditorFormHelp"
+						>
+							?
+						</span>
+					</div>
+
+					<div className="itemEditorFormInputOuter ">
+						<label>Date (for display):</label>
+						<Field
+							name="title"
+							type="text"
+							component="input"
+							placeholder="The date that should be displayed to the user" 
 							validate={[required, maxLength200]}
 						/>
 						<span
@@ -55,7 +103,7 @@ class ItemEditor extends React.Component {
 					</div>
 
 					<div className="itemEditorFormInputOuter itemEditorFormDescriptionOuter">
-						<label>Enter a description of your item.</label>
+						<label>Enter a description of the event.</label>
 						<Field
 							name="description"
 							type="text"

@@ -28,12 +28,12 @@ const EventListPage = props => {
 			<CollectionCover
 				title="Events"
 				coverImage={coverImage}
-				coverLink={props.userIsAdmin ? '/items/create' : null}
+				coverLink={props.userIsAdmin ? '/events/create' : null}
 				coverLinkText={props.userIsAdmin ? 'Create new' : null}
 			/>
 			<EventListContainer />
 			<Pagination
-				total={props.itemsCount}
+				total={props.eventsCount}
 				limit={18}
 			/>
 		</div>
@@ -42,12 +42,12 @@ const EventListPage = props => {
 
 EventListPage.propTypes = {
 	userIsAdmin: PropTypes.bool,
-	itemsCount: PropTypes.number,
+	eventsCount: PropTypes.number,
 };
 
 EventListPage.defaultProps = {
 	userIsAdmin: false,
-	itemsCount: 0,
+	eventsCount: 0,
 };
 
 export default EventListPage;
