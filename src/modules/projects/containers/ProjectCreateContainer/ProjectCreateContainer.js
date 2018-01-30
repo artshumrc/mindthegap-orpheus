@@ -2,6 +2,7 @@ import React from 'react';
 import { compose } from 'react-apollo';
 import autoBind from 'react-autobind';
 import { connect } from 'react-redux';
+import { withHistory } from 'react-router';
 
 import * as authActions from '../../../auth/actions';
 import ProjectCreate from '../../components/ProjectCreate';
@@ -24,6 +25,10 @@ class ProjectCreateContainer extends React.Component {
 
 	componentDidMount() {
 		const { userId, toggleAuthModal } = this.props;
+
+		// single project deployment, only use dashboard
+		this.props.router.replace('/dashboard');
+
 		if (!userId) {
 			toggleAuthModal(true);
 		}
@@ -48,6 +53,7 @@ class ProjectCreateContainer extends React.Component {
 	}
 
 	render() {
+		console.log('$$$$$$$')
 		return (
 			<ProjectCreate
 				projectHostname={`${this.state.projectHostname}.orphe.us`}
@@ -75,4 +81,5 @@ export default compose(
 		mapDispatchToProps,
 	),
 	projectCreateMutation,
+	withHistory,
 )(ProjectCreateContainer);

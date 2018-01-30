@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 import ProfileNav from '../ProfileNav';
@@ -29,7 +28,6 @@ const ProfileProjects = ({ projects }) => (
 				{projects && !projects.length ?
 					<div className="profileProjectListNoResults">
 						<p>
-							You don&apos;t belong to any projects. <Link to="/create">Create one.</Link>
 						</p>
 					</div>
 				: ''}

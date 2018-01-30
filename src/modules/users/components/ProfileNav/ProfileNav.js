@@ -32,9 +32,9 @@ const ProfileNav = (props) => {
 				Your Projects
 			</Link>
 			<Link
-				to="/create"
+				to="/dashboard"
 				className={
-					activePath === '/create' ?
+					activePath === '/dashboard' ?
 					'profileNavLinkActive'
 					: ''
 				}

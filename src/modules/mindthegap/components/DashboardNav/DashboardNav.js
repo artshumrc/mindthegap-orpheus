@@ -22,7 +22,7 @@ const DashboardNav = (props) => {
 			</Link>
 			<div className="navLinkWithDropdown">
 				<Link
-					to="/create"
+					to="/dashboard"
 					className={`
 						dashboardNavLinkWithDropdown
 						${activePath === '/people/create' ?
