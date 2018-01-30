@@ -1,0 +1,6 @@
+{
+  "name": "PersonEditor",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./PersonEditor.js"
+}

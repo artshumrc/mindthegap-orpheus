@@ -1,0 +1,6 @@
+{
+  "name": "EventEditor",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./EventEditor.js"
+}
