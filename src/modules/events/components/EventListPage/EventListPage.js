@@ -4,12 +4,12 @@ import _ from 'underscore';
 
 import CollectionCover from '../../../collections/components/CollectionCover';
 import Pagination from '../../../../components/pagination/Pagination';
-import ItemListContainer from '../../containers/ItemListContainer';
+import EventListContainer from '../../containers/EventListContainer';
 
 
-import './ItemListPage.css';
+import './EventListPage.css';
 
-const ItemListPage = props => {
+const EventListPage = props => {
 
 	let files = [];
 	let coverImage = null;
@@ -31,7 +31,7 @@ const ItemListPage = props => {
 				coverLink={props.userIsAdmin ? '/items/create' : null}
 				coverLinkText={props.userIsAdmin ? 'Create new' : null}
 			/>
-			<ItemListContainer />
+			<EventListContainer />
 			<Pagination
 				total={props.itemsCount}
 				limit={18}
@@ -40,14 +40,14 @@ const ItemListPage = props => {
 	);
 }
 
-ItemListPage.propTypes = {
+EventListPage.propTypes = {
 	userIsAdmin: PropTypes.bool,
 	itemsCount: PropTypes.number,
 };
 
-ItemListPage.defaultProps = {
+EventListPage.defaultProps = {
 	userIsAdmin: false,
 	itemsCount: 0,
 };
 
-export default ItemListPage;
+export default EventListPage;

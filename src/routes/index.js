@@ -12,6 +12,15 @@ import collectionRoutes from '../modules/collections/routes';
 // Items
 import itemRoutes from '../modules/items/routes';
 
+// Events
+import eventRoutes from '../modules/events/routes';
+
+// Interviews
+import interviewRoutes from '../modules/interviews/routes';
+
+// People
+import peopleRoutes from '../modules/people/routes';
+
 // Pages
 import pageRoutes from '../modules/pages/routes';
 
@@ -41,6 +50,9 @@ export default (
 
 		{/* Routes for items */}
 		{itemRoutes}
+		{eventRoutes}
+		{interviewRoutes}
+		{peopleRoutes}
 
 		{/* Routes for texts */}
 		{textRoutes}

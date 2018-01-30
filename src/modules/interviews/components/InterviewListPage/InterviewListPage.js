@@ -4,12 +4,12 @@ import _ from 'underscore';
 
 import CollectionCover from '../../../collections/components/CollectionCover';
 import Pagination from '../../../../components/pagination/Pagination';
-import ItemListContainer from '../../containers/ItemListContainer';
+import InterviewListContainer from '../../containers/InterviewListContainer';
 
 
-import './ItemListPage.css';
+import './InterviewListPage.css';
 
-const ItemListPage = props => {
+const InterviewListPage = props => {
 
 	let files = [];
 	let coverImage = null;
@@ -26,28 +26,28 @@ const ItemListPage = props => {
 	return (
 		<div >
 			<CollectionCover
-				title="Events"
+				title="Interviews"
 				coverImage={coverImage}
-				coverLink={props.userIsAdmin ? '/items/create' : null}
+				coverLink={props.userIsAdmin ? '/interviews/create' : null}
 				coverLinkText={props.userIsAdmin ? 'Create new' : null}
 			/>
-			<ItemListContainer />
+			<InterviewListContainer />
 			<Pagination
-				total={props.itemsCount}
+				total={props.interviewsCount}
 				limit={18}
 			/>
 		</div>
 	);
 }
 
-ItemListPage.propTypes = {
+InterviewListPage.propTypes = {
 	userIsAdmin: PropTypes.bool,
-	itemsCount: PropTypes.number,
+	interviewsCount: PropTypes.number,
 };
 
-ItemListPage.defaultProps = {
+InterviewListPage.defaultProps = {
 	userIsAdmin: false,
-	itemsCount: 0,
+	interviewsCount: 0,
 };
 
-export default ItemListPage;
+export default InterviewListPage;

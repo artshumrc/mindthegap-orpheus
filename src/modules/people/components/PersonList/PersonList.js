@@ -2,43 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import NoResults from '../../../../components/pagination/NoResults';
-import ItemListItem from '../ItemListItem';
+import PersonListItem from '../PersonListItem';
 
-import './ItemList.css';
+import './PersonList.css';
 
 
-const ItemList = ({ items, horizontal }) => {
+const PersonList = ({ people, horizontal }) => {
 	const classes = [];
 
 
 	if (horizontal) {
-		classes.push('itemListHorizontal');
+		classes.push('personListHorizontal');
 	}
 
 	return (
-		<div className={`itemList ${classes.join(' ')}`}>
-			{items.map((listItem, i) => (
-				<ItemListItem
+		<div className={`personList ${classes.join(' ')}`}>
+			{people.map((listItem, i) => (
+				<PersonListItem
 					key={`${listItem.slug}-${i}`}
 					{...listItem}
 				/>
 			))}
 
-			{!items || !items.length ?
+			{!people || !people.length ?
 				<NoResults
-					message="No items have been added to this collection yet."
+					message="No people have been added to this collection yet."
 				/>
 			: ''}
 		</div>
 	);
 };
 
-ItemList.propTypes = {
-	items: PropTypes.array,
+PersonList.propTypes = {
+	people: PropTypes.array,
 };
 
-ItemList.defaultProps = {
-	items: [],
+PersonList.defaultProps = {
+	people: [],
 };
 
-export default ItemList;
+export default PersonList;

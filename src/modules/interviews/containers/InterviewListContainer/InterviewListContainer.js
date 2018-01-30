@@ -4,41 +4,41 @@ import { compose } from 'react-apollo';
 import _ from 'underscore';
 
 import InterviewList from '../../components/InterviewList';
-import itemListQuery from '../../graphql/queries/list';
+import interviewListQuery from '../../graphql/queries/list';
 
 
 class InterviewListContainer extends React.Component {
 	render() {
-		let items = [];
+		let interviews = [];
 
 		if (
-			this.props.itemListQuery
-			&& this.props.itemListQuery.project
+			this.props.interviewListQuery
+			&& this.props.interviewListQuery.project
 		) {
-			items = this.props.itemListQuery.project.items;
+			interviews = this.props.interviewListQuery.project.interviews;
 		}
 
-		if (items.length && this.props.limit && this.props.random) {
-			let _items = [];
+		if (interviews.length && this.props.limit && this.props.random) {
+			let _interviews = [];
 
 			for (let i = 0; i < this.props.limit; i++){
-				_items.push(_.sample(items));
+				_interviews.push(_.sample(interviews));
 			}
-			items = _items;
+			interviews = _interviews;
 		}
 
 		return (
 			<InterviewList
-				items={items}
+				interviews={interviews}
 			/>
 		);
 	}
 }
 
 InterviewListContainer.propTypes = {
-	itemListQuery: PropTypes.object,
+	interviewListQuery: PropTypes.object,
 };
 
 export default compose(
-	itemListQuery,
+	interviewListQuery,
 )(InterviewListContainer);

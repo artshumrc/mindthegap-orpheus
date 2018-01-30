@@ -2,43 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import NoResults from '../../../../components/pagination/NoResults';
-import ItemListItem from '../ItemListItem';
+import InterviewListItem from '../InterviewListItem';
 
-import './ItemList.css';
+import './InterviewList.css';
 
 
-const ItemList = ({ items, horizontal }) => {
+const InterviewList = ({ interviews, horizontal }) => {
 	const classes = [];
 
 
 	if (horizontal) {
-		classes.push('itemListHorizontal');
+		classes.push('interviewListHorizontal');
 	}
 
 	return (
-		<div className={`itemList ${classes.join(' ')}`}>
-			{items.map((listItem, i) => (
-				<ItemListItem
+		<div className={`interviewList ${classes.join(' ')}`}>
+			{interviews.map((listItem, i) => (
+				<InterviewListItem
 					key={`${listItem.slug}-${i}`}
 					{...listItem}
 				/>
 			))}
 
-			{!items || !items.length ?
+			{!interviews || !interviews.length ?
 				<NoResults
-					message="No items have been added to this collection yet."
+					message="No interviews have been added to this collection yet."
 				/>
 			: ''}
 		</div>
 	);
 };
 
-ItemList.propTypes = {
-	items: PropTypes.array,
+InterviewList.propTypes = {
+	interviews: PropTypes.array,
 };
 
-ItemList.defaultProps = {
-	items: [],
+InterviewList.defaultProps = {
+	interviews: [],
 };
 
-export default ItemList;
+export default InterviewList;

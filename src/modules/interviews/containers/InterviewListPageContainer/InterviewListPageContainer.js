@@ -3,7 +3,7 @@ import { compose } from 'react-apollo';
 
 import InterviewListPage from '../../components/InterviewListPage';
 import userIsAdminQuery from '../../../users/graphql/queries/userIsAdmin';
-import itemListQuery from '../../graphql/queries/list';
+import interviewListQuery from '../../graphql/queries/list';
 
 
 const InterviewListPageContainer = (props) => {
@@ -18,10 +18,10 @@ const InterviewListPageContainer = (props) => {
 	}
 
 	if (
-		props.itemListQuery
-		&& props.itemListQuery.project
+		props.interviewListQuery
+		&& props.interviewListQuery.project
 	) {
-		files = props.itemListQuery.project.files;
+		files = props.interviewListQuery.project.files;
 	}
 
 	return (
@@ -34,5 +34,5 @@ const InterviewListPageContainer = (props) => {
 
 export default compose(
 	userIsAdminQuery,
-	itemListQuery,
+	interviewListQuery,
 )(InterviewListPageContainer);

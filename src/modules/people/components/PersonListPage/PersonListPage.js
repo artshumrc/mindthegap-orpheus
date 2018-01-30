@@ -4,12 +4,12 @@ import _ from 'underscore';
 
 import CollectionCover from '../../../collections/components/CollectionCover';
 import Pagination from '../../../../components/pagination/Pagination';
-import ItemListContainer from '../../containers/ItemListContainer';
+import PersonListContainer from '../../containers/PersonListContainer';
 
 
-import './ItemListPage.css';
+import './PersonListPage.css';
 
-const ItemListPage = props => {
+const PersonListPage = props => {
 
 	let files = [];
 	let coverImage = null;
@@ -26,12 +26,12 @@ const ItemListPage = props => {
 	return (
 		<div >
 			<CollectionCover
-				title="Events"
+				title="People"
 				coverImage={coverImage}
-				coverLink={props.userIsAdmin ? '/items/create' : null}
+				coverLink={props.userIsAdmin ? '/people/create' : null}
 				coverLinkText={props.userIsAdmin ? 'Create new' : null}
 			/>
-			<ItemListContainer />
+			<PersonListContainer />
 			<Pagination
 				total={props.itemsCount}
 				limit={18}
@@ -40,14 +40,14 @@ const ItemListPage = props => {
 	);
 }
 
-ItemListPage.propTypes = {
+PersonListPage.propTypes = {
 	userIsAdmin: PropTypes.bool,
 	itemsCount: PropTypes.number,
 };
 
-ItemListPage.defaultProps = {
+PersonListPage.defaultProps = {
 	userIsAdmin: false,
 	itemsCount: 0,
 };
 
-export default ItemListPage;
+export default PersonListPage;

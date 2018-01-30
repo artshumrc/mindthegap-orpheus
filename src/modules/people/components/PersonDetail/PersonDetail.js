@@ -1,15 +1,18 @@
 import React from 'react';
+
 import Tags from '../../../tags/components/Tags';
-import ItemImageViewer from '../ItemImageViewer';
-import ItemTitle from '../ItemTitle';
-import ItemDescription from '../ItemDescription';
-import ItemMetaFields from '../ItemMetaFields';
-import ItemCollection from '../ItemCollection';
+
+import ItemImageViewer from '../../../items/components/ItemImageViewer';
+import ItemTitle from '../../../items/components/ItemTitle';
+import ItemDescription from '../../../items/components/ItemDescription';
+import ItemMetaFields from '../../../items/components/ItemMetaFields';
+
 import Discussion from '../../../comments/components/Discussion';
 
-import './ItemDetail.css';
 
-const ItemDetail = ({
+import './PersonDetail.css';
+
+const PersonDetail = ({
 	_id, title, slug, description, tags, metadata, files, commentsCount, comments,
 	userIsAdmin, manifest, handleRemove
 })=> {
@@ -20,20 +23,20 @@ const ItemDetail = ({
 	}
 
 	return (
-		<div className="itemDetail">
+		<div className="personDetail">
 
 			{files ?
 				<ItemImageViewer
-					itemMiradorLink={ manifest ? `/items/${_id}/${slug}/mirador` : null}
+					itemMiradorLink={ manifest ? `/people/${_id}/${slug}/mirador` : null}
 					files={files}
 				/>
 			: ''}
 
-			<div className="itemDetailColumn">
+			<div className="personDetailColumn">
 				<ItemTitle
 					_id={_id}
 					title={title}
-					editLink={userIsAdmin ? `/items/${_id}/${slug}/edit` : null}
+					editLink={userIsAdmin ? `/people/${_id}/${slug}/edit` : null}
 					handleRemove={userIsAdmin ? handleRemove : null}
 				/>
 				<ItemDescription
@@ -50,11 +53,9 @@ const ItemDetail = ({
 					comments={comments}
 				/>
 			</div>
-
-			<ItemCollection />
 		</div>
 	);
 }
 
 
-export default ItemDetail;
+export default PersonDetail;

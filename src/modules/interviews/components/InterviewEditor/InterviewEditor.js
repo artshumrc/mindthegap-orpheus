@@ -5,25 +5,25 @@ import { connect } from 'react-redux';
 
 import ItemEditorUploader from '../../../dashboard/components/ItemEditorUploader';
 import { required, maxLength } from '../../../../lib/formHelpers';
-import MetadataFields from '../MetadataFields';
+import MetadataFields from '../../../items/components/MetadataFields';
 
-import './ItemEditor.css';
+import './InterviewEditor.css';
 
 
 const maxLength200 = maxLength(200);
 const maxLength200000 = maxLength(200000);
 
 
-class ItemEditor extends React.Component {
+class InterviewEditor extends React.Component {
 
 	render() {
-		const { item, files, metadata } = this.props;
+		const { interview, files, metadata } = this.props;
 
 		return (
-			<div className="itemEditor">
+			<div className="interviewEditor">
 
-				<div className="itemEditorHead">
-					<h1>{item ? 'Edit' : 'Create'} Item</h1>
+				<div className="interviewEditorHead">
+					<h1>{interview ? 'Edit' : 'Create'} Interview</h1>
 
 					<ItemEditorUploader
 						files={files}
@@ -35,43 +35,43 @@ class ItemEditor extends React.Component {
 				</div>
 
 				<form
-					className="itemEditorForm"
+					className="interviewEditorForm"
 					onSubmit={this.props.handleSubmit}
 				>
-					<div className="itemEditorFormInputOuter itemEditorFormTitleOuter">
+					<div className="interviewEditorFormInputOuter interviewEditorFormTitleOuter">
 						<label>Title</label>
 						<Field
 							name="title"
 							type="text"
 							component="input"
-							placeholder="Your item title"
+							placeholder="Your interview title"
 							validate={[required, maxLength200]}
 						/>
 						<span
-							className="itemEditorFormHelp"
+							className="interviewEditorFormHelp"
 						>
 							?
 						</span>
 					</div>
 
-					<div className="itemEditorFormInputOuter itemEditorFormDescriptionOuter">
-						<label>Enter a description of your item.</label>
+					<div className="interviewEditorFormInputOuter interviewEditorFormDescriptionOuter">
+						<label>Enter a description of your interview.</label>
 						<Field
 							name="description"
 							type="text"
 							component="textarea"
-							placeholder="Example description of item . . . "
+							placeholder="Example description of interview . . . "
 							validate={[maxLength200000]}
 						/>
 						<span
-							className="itemEditorFormHelp"
+							className="interviewEditorFormHelp"
 						>
 							?
 						</span>
 					</div>
 
-					<div className="itemEditorFormInputOuter itemEditorFormInputOuterMetadata">
-						<label>Enter metadata for this item.</label>
+					<div className="interviewEditorFormInputOuter interviewEditorFormInputOuterMetadata">
+						<label>Enter metadata for this interview.</label>
 						<FieldArray
 							name="metadata"
 							component={MetadataFields}
@@ -81,11 +81,11 @@ class ItemEditor extends React.Component {
 					</div>
 
 
-					<div className="itemEditorFormInputOuter">
+					<div className="interviewEditorFormInputOuter">
 						<button
 							type="submit"
 							className={`
-								itemEditorButton
+								interviewEditorButton
 							`}
 						>
 							Save
@@ -98,19 +98,19 @@ class ItemEditor extends React.Component {
 }
 
 
-ItemEditor.propTypes = {
-	item: PropTypes.object,
+InterviewEditor.propTypes = {
+	interview: PropTypes.object,
 	files: PropTypes.array,
 	metadata: PropTypes.array,
 };
 
 
-let ItemEditorForm = reduxForm({
-	form: 'ItemEditor',
+let InterviewEditorForm = reduxForm({
+	form: 'InterviewEditor',
 	enableReinitialize: true,
-})(ItemEditor);
+})(InterviewEditor);
 
-const selector = formValueSelector('ItemEditor') // <-- same as form name
+const selector = formValueSelector('InterviewEditor') // <-- same as form name
 
 const mapStateToProps = (state, props) => {
 	const metadata = selector(state, 'metadata')
@@ -120,8 +120,8 @@ const mapStateToProps = (state, props) => {
 	};
 };
 
-ItemEditorForm = connect(
+InterviewEditorForm = connect(
 	mapStateToProps
-)(ItemEditorForm);
+)(InterviewEditorForm);
 
-export default ItemEditorForm;
+export default InterviewEditorForm;

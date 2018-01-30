@@ -1,6 +1,6 @@
 {
-  "name": "ItemListPage",
+  "name": "InterviewListPage",
   "version": "0.0.1",
   "private": true,
-  "main": "./ItemListPage.js"
+  "main": "./InterviewListPage.js"
 }

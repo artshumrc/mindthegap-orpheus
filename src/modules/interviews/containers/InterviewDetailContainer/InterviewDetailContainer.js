@@ -6,9 +6,9 @@ import autoBind from 'react-autobind';
 import InterviewDetail from '../../components/InterviewDetail';
 
 // graphql
-import itemListQuery from '../../graphql/queries/list';
-import itemDetailQuery from '../../graphql/queries/detail';
-import itemRemoveMutation from '../../graphql/mutations/remove';
+import interviewListQuery from '../../graphql/queries/list';
+import interviewDetailQuery from '../../graphql/queries/detail';
+import interviewRemoveMutation from '../../graphql/mutations/remove';
 
 
 class InterviewDetailContainer extends React.Component {
@@ -17,12 +17,12 @@ class InterviewDetailContainer extends React.Component {
 		autoBind(this);
 	}
 
-	handleRemove(itemId) {
-		const { itemRemove, router } = this.props;
+	handleRemove(interviewId) {
+		const { interviewRemove, router } = this.props;
 
-		itemRemove(itemId)
+		interviewRemove(interviewId)
 			.then((response) => {
-				router.replace('/items');
+				router.replace('/interviews');
 			})
 			.catch((err) => {
 				console.error(err);
@@ -30,20 +30,20 @@ class InterviewDetailContainer extends React.Component {
 	}
 
 	render() {
-		let item = [];
+		let interview = [];
 		let userIsAdmin = false;
 
 		if (
-			this.props.itemQuery
-			&& this.props.itemQuery.project
+			this.props.interviewQuery
+			&& this.props.interviewQuery.project
 		) {
-			item = this.props.itemQuery.project.item;
-			userIsAdmin = this.props.itemQuery.project.userIsAdmin;
+			interview = this.props.interviewQuery.project.interview;
+			userIsAdmin = this.props.interviewQuery.project.userIsAdmin;
 		}
 
 		return (
 			<InterviewDetail
-				{...item}
+				{...interview}
 				userIsAdmin={userIsAdmin}
 				handleRemove={this.handleRemove}
 			/>
@@ -52,5 +52,5 @@ class InterviewDetailContainer extends React.Component {
 }
 
 export default compose(
-	itemListQuery, itemDetailQuery, itemRemoveMutation
+	interviewListQuery, interviewDetailQuery, interviewRemoveMutation
 )(InterviewDetailContainer);

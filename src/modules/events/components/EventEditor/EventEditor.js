@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 import ItemEditorUploader from '../../../dashboard/components/ItemEditorUploader';
 import { required, maxLength } from '../../../../lib/formHelpers';
-import MetadataFields from '../MetadataFields';
+import MetadataFields from '../../../items/components/MetadataFields';
 
-import './ItemEditor.css';
+import './EventEditor.css';
 
 
 const maxLength200 = maxLength(200);

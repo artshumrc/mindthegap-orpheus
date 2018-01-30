@@ -5,24 +5,24 @@ import { connect } from 'react-redux';
 
 import ItemEditorUploader from '../../../dashboard/components/ItemEditorUploader';
 import { required, maxLength } from '../../../../lib/formHelpers';
-import MetadataFields from '../MetadataFields';
+import MetadataFields from '../../../items/components/MetadataFields';
 
-import './ItemEditor.css';
+import './PersonEditor.css';
 
 
 const maxLength200 = maxLength(200);
 const maxLength200000 = maxLength(200000);
 
 
-class ItemEditor extends React.Component {
+class PersonEditor extends React.Component {
 
 	render() {
 		const { item, files, metadata } = this.props;
 
 		return (
-			<div className="itemEditor">
+			<div className="personEditor">
 
-				<div className="itemEditorHead">
+				<div className="personEditorHead">
 					<h1>{item ? 'Edit' : 'Create'} Item</h1>
 
 					<ItemEditorUploader
@@ -35,10 +35,10 @@ class ItemEditor extends React.Component {
 				</div>
 
 				<form
-					className="itemEditorForm"
+					className="personEditorForm"
 					onSubmit={this.props.handleSubmit}
 				>
-					<div className="itemEditorFormInputOuter itemEditorFormTitleOuter">
+					<div className="personEditorFormInputOuter personEditorFormTitleOuter">
 						<label>Title</label>
 						<Field
 							name="title"
@@ -48,13 +48,13 @@ class ItemEditor extends React.Component {
 							validate={[required, maxLength200]}
 						/>
 						<span
-							className="itemEditorFormHelp"
+							className="personEditorFormHelp"
 						>
 							?
 						</span>
 					</div>
 
-					<div className="itemEditorFormInputOuter itemEditorFormDescriptionOuter">
+					<div className="personEditorFormInputOuter personEditorFormDescriptionOuter">
 						<label>Enter a description of your item.</label>
 						<Field
 							name="description"
@@ -64,13 +64,13 @@ class ItemEditor extends React.Component {
 							validate={[maxLength200000]}
 						/>
 						<span
-							className="itemEditorFormHelp"
+							className="personEditorFormHelp"
 						>
 							?
 						</span>
 					</div>
 
-					<div className="itemEditorFormInputOuter itemEditorFormInputOuterMetadata">
+					<div className="personEditorFormInputOuter personEditorFormInputOuterMetadata">
 						<label>Enter metadata for this item.</label>
 						<FieldArray
 							name="metadata"
@@ -81,11 +81,11 @@ class ItemEditor extends React.Component {
 					</div>
 
 
-					<div className="itemEditorFormInputOuter">
+					<div className="personEditorFormInputOuter">
 						<button
 							type="submit"
 							className={`
-								itemEditorButton
+								personEditorButton
 							`}
 						>
 							Save
@@ -98,19 +98,19 @@ class ItemEditor extends React.Component {
 }
 
 
-ItemEditor.propTypes = {
+PersonEditor.propTypes = {
 	item: PropTypes.object,
 	files: PropTypes.array,
 	metadata: PropTypes.array,
 };
 
 
-let ItemEditorForm = reduxForm({
-	form: 'ItemEditor',
+let PersonEditorForm = reduxForm({
+	form: 'PersonEditor',
 	enableReinitialize: true,
-})(ItemEditor);
+})(PersonEditor);
 
-const selector = formValueSelector('ItemEditor') // <-- same as form name
+const selector = formValueSelector('PersonEditor') // <-- same as form name
 
 const mapStateToProps = (state, props) => {
 	const metadata = selector(state, 'metadata')
@@ -120,8 +120,8 @@ const mapStateToProps = (state, props) => {
 	};
 };
 
-ItemEditorForm = connect(
+PersonEditorForm = connect(
 	mapStateToProps
-)(ItemEditorForm);
+)(PersonEditorForm);
 
-export default ItemEditorForm;
+export default PersonEditorForm;

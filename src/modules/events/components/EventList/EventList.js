@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import NoResults from '../../../../components/pagination/NoResults';
-import ItemListItem from '../ItemListItem';
+import EventListItem from '../EventListItem';
 
-import './ItemList.css';
+import './EventList.css';
 
 
-const ItemList = ({ items, horizontal }) => {
+const EventList = ({ items, horizontal }) => {
 	const classes = [];
 
 
@@ -18,7 +18,7 @@ const ItemList = ({ items, horizontal }) => {
 	return (
 		<div className={`itemList ${classes.join(' ')}`}>
 			{items.map((listItem, i) => (
-				<ItemListItem
+				<EventListItem
 					key={`${listItem.slug}-${i}`}
 					{...listItem}
 				/>
@@ -33,12 +33,12 @@ const ItemList = ({ items, horizontal }) => {
 	);
 };
 
-ItemList.propTypes = {
+EventList.propTypes = {
 	items: PropTypes.array,
 };
 
-ItemList.defaultProps = {
+EventList.defaultProps = {
 	items: [],
 };
 
-export default ItemList;
+export default EventList;
