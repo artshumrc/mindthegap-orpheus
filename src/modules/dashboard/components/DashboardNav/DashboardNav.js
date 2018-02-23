@@ -118,6 +118,7 @@ const DashboardNav = (props) => {
 					</Link>
 				</div>
 			</div>
+			{/*
 			<Link
 				to="/dashboard/help"
 				className={
@@ -129,6 +130,7 @@ const DashboardNav = (props) => {
 				<i className="mdi mdi-information-outline" />
 				Support
 			</Link>
+			*/}
 		</div>
 	);
 };
