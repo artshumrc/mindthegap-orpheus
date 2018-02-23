@@ -10,9 +10,9 @@ const query = gql`
 			userIsAdmin
 			person(_id: $id) {
 				_id
-				title
+				name
 				slug
-				description
+				bio
 				projectId
 
 				metadata {

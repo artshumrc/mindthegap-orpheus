@@ -14,12 +14,14 @@ const ProjectNotFound = props => (
 		<Grid>
 			<Row>
 				<Col>
+					{/*
 					<h1>
 						This project was not found.
 					</h1>
 					<p>
 						Head <a href="//orphe.us">back home.</a>
 					</p>
+					*/}
 				</Col>
 			</Row>
 		</Grid>

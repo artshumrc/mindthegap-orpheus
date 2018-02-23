@@ -9,9 +9,11 @@ const query = gql`
 	    _id
 			people {
 				_id
-				title
+				name
 				slug
-				description
+				dateBirth
+				dateDeath
+				bio
 				files {
 					_id
 					name

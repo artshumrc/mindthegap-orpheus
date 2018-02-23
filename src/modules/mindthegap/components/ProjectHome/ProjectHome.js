@@ -2,8 +2,6 @@ import React from 'react';
 import _ from 'underscore';
 
 import ProjectHeaderContainer from '../../containers/ProjectHeaderContainer';
-import ProjectFooterContainer from '../../../projects/containers/ProjectFooterContainer';
-
 import ProjectVisualization from './sections/ProjectVisualization';
 
 
@@ -54,9 +52,6 @@ const ProjectHome = props => {
 			<ProjectHeaderContainer />
 
 			<ProjectVisualization />
-
-			{/* Footer */}
-			<ProjectFooterContainer />
 		</div>
 	);
 }
