@@ -56,22 +56,22 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 						</li>
 					: ''}
 					<li>
-						<Link to="/people" >
+						<Link to="/" >
 							People
 						</Link>
 					</li>
 					<li>
-						<Link to="/interviews" >
+						<Link to="/" >
 							Interviews
 						</Link>
 					</li>
 					<li>
-						<Link to="/events" >
+						<Link to="/" >
 							Events
 						</Link>
 					</li>
 					<li>
-						<Link to="/items" >
+						<Link to="/" >
 							Items
 						</Link>
 					</li>
@@ -99,7 +99,7 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 					<li>
 						<Link
 							className="searchLink"
-							to="/search"
+							to="/"
 						>
 							<i className="mdi mdi-magnify searchIcon" />
 						</Link>

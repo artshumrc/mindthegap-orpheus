@@ -70,7 +70,7 @@ const InfoModalContent = props => (
 							<div
 								className="personAsideThumbnail"
 								style={{
-									backgroundImage: 'url(/images/example2.jpg)',
+									backgroundImage: 'url(/images/example3.jpg)',
 									backgroundSize: 'cover',
 									backgroundPosition: 'center',
 									backgroundRepeat: 'no-repeat',
@@ -88,7 +88,67 @@ const InfoModalContent = props => (
 			</Row>
 		</div>
 		<div className="infoModalSimilar">
+			<h2>Items Similar to this Post</h2>
+			<div className="itemRelatedList">
+				<div className="itemRelatedTeaser">
+					<div
+						className="itemRelatedTeaserThumbnail"
+						style={{
+  						backgroundImage: 'url(/images/example4.jpg)',
+  						backgroundSize: 'cover',
+  						backgroundPosition: 'center',
+  						backgroundRepeat: 'no-repeat',
+  						height: '300px',
+  						width: '320px',
+  					}}
+          />
+					<h4 className="itemRelatedTeaserTitle">
+            1965 Immigration Act
+					</h4>
+					<label className="itemRelatedTeaserLabel">
+            Santo Domingo, Dominican Republic
+					</label>
+				</div>
+				<div className="itemRelatedTeaser">
+					<div
+						className="itemRelatedTeaserThumbnail"
+						style={{
+  						backgroundImage: 'url(/images/example7.jpg)',
+  						backgroundSize: 'cover',
+  						backgroundPosition: 'center',
+  						backgroundRepeat: 'no-repeat',
+  						height: '300px',
+  						width: '320px',
+  					}}
+          />
+					<h4 className="itemRelatedTeaserTitle">
+            La Guerra de Abril
+					</h4>
+					<label className="itemRelatedTeaserLabel">
+            Santo Domingo, Dominican Republic
+					</label>
+				</div>
+				<div className="itemRelatedTeaser">
+					<div
+						className="itemRelatedTeaserThumbnail"
+						style={{
+  						backgroundImage: 'url(/images/example6.jpg)',
+  						backgroundSize: 'cover',
+  						backgroundPosition: 'center',
+  						backgroundRepeat: 'no-repeat',
+  						height: '300px',
+  						width: '320px',
+  					}}
+          />
+					<h4 className="itemRelatedTeaserTitle">
+            Transnational Commemoration
+					</h4>
+					<label className="itemRelatedTeaserLabel">
+            Santo Domingo, Dominican Republic
+					</label>
+				</div>
 
+			</div>
 		</div>
 	</div>
 );

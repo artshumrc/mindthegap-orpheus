@@ -16,7 +16,7 @@ class ProjectHome extends React.Component {
 		super(props);
 
 		this.state = {
-			showInfoModal: true,
+			showInfoModal: false,
 		};
 
 		autoBind(this);

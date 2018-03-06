@@ -17,9 +17,6 @@ const ProjectVisualization = ({ handleToggleInfoModal }) => (
 				height: '100vh',
 				width: '100vw',
 			}}
-			settings={{
-				defaultNodeColor: "#ff4e48"
-			}}
 		>
 			<EdgeShapes
 				default="curvedArrow"
@@ -31,7 +28,7 @@ const ProjectVisualization = ({ handleToggleInfoModal }) => (
 			<LoadJSON path="./upwork.json">
 				<RandomizeNodePositions>
 					<ForceAtlas2 iterationsPerRender={1} timeout={6000} />
-					<RelativeSize initialSize={100} />
+					<RelativeSize initialSize={8} />
 				</RandomizeNodePositions>
 			</LoadJSON>
 		</Sigma>

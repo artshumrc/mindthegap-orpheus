@@ -77,3 +77,36 @@
     margin: 0;
   }
 }
+
+.infoModalSimilar {
+  margin: 60px auto;
+
+  h2 {
+    margin: 60px auto;
+  }
+}
+
+.itemRelatedList {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 30px auto;
+  width: 100%;
+}
+
+.itemRelatedTeaser {
+  text-align: left;
+
+  h4 {
+    margin: 40px 0 10px;
+    text-align: left;
+  }
+
+  label {
+
+  }
+}
+
+.itemRelatedTeaserThumbnail {
+  box-shadow: 0 7px 19px 0px rgba(0, 0, 0, 0.4);
+}
