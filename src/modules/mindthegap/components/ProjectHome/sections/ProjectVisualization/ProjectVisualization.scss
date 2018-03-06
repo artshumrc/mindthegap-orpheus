@@ -1,5 +1,10 @@
 @import '../../../../../../variables.scss';
 
 .projectVisualization {
-	
+  width: 100vw;
+  height: 100vh;
+	padding-top: 60px;
+  position: fixed;
+  overflow: hidden;
+	background: #444;
 }

@@ -1,59 +1,54 @@
 import React from 'react';
-import _ from 'underscore';
+import autoBind from 'react-autobind';
 
 import ProjectHeaderContainer from '../../containers/ProjectHeaderContainer';
 import ProjectVisualization from './sections/ProjectVisualization';
-
+import InfoModalContent from '../InfoModalContent';
+import Modal from '../../../../components/common/modal/Modal';
 
 import './ProjectHome.css';
 import '../../../home/components/Home/Home.css';
 
 
-const ProjectHome = props => {
-	// get featured items
-	let featuredItems = [];
-	if (props.featuredItems) {
-		featuredItems = props.featuredItems;
-	} else if (props.items) {
-		const items = props.items.slice();
-		_.range(0, 3).forEach(i => {
-			const selectedItem = _.sample(items);
-			if (selectedItem) {
-				featuredItems.push(selectedItem);
-				items.splice(
-					items.findIndex(item => item._id === selectedItem._id),
-					1
-				);
-			}
+class ProjectHome extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			showInfoModal: true,
+		};
+
+		autoBind(this);
+	}
+
+	handleToggleInfoModal(e) {
+		e.preventDefault();
+		this.setState({
+			showInfoModal: !this.state.showInfoModal,
 		});
 	}
 
-	// get featured collections
-	let featuredCollections = [];
-	if (props.featuredCollections) {
-		featuredCollections = props.featuredCollections;
-	} else if (props.collections) {
-		const collections = props.collections.slice();
-		_.range(0, 3).forEach(i => {
-			const selectedCollection = _.sample(collections);
-			if (selectedCollection) {
-				featuredCollections.push(selectedCollection);
-				collections.splice(
-					collections.findIndex(collection => collection._id === selectedCollection._id),
-					1
-				);
-			}
-		});
+	render() {
+		return (
+			<div id="home" className="projectHome">
+				{/* Header */}
+				<ProjectHeaderContainer />
+
+				<ProjectVisualization
+					handleToggleInfoModal={this.handleToggleInfoModal}
+				/>
+
+				<Modal
+					show={this.state.showInfoModal}
+					closeModal={this.handleToggleInfoModal}
+					innerFullWidth
+				>
+					<InfoModalContent />
+				</Modal>
+			</div>
+		);
 	}
-
-	return (
-		<div id="home" className="projectHome">
-			{/* Header */}
-			<ProjectHeaderContainer />
-
-			<ProjectVisualization />
-		</div>
-	);
 }
 
 export default ProjectHome;

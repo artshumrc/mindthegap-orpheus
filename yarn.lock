@@ -2810,6 +2810,10 @@ deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
 
+deepmerge@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.0.1.tgz#25c1c24f110fb914f80001b925264dd77f3f4312"
+
 default-require-extensions@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/default-require-extensions/-/default-require-extensions-1.0.0.tgz#f37ea15d3e13ffd9b437d33e1a75b5fb97874cb8"
@@ -6100,6 +6104,10 @@ load-json-file@^4.0.0:
     pify "^3.0.0"
     strip-bom "^3.0.0"
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+
 loader-fs-cache@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/loader-fs-cache/-/loader-fs-cache-1.0.1.tgz#56e0bf08bd9708b26a765b68509840c8dec9fdbc"
@@ -8255,6 +8263,14 @@ react-overlays@^0.7.4:
     prop-types-extra "^1.0.1"
     warning "^3.0.0"
 
+react-player@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-1.2.1.tgz#67f7196b6783457cbaa678272b34fa42411dd153"
+  dependencies:
+    deepmerge "^2.0.1"
+    load-script "^1.0.0"
+    prop-types "^15.5.6"
+
 react-recaptcha@^2.3.5:
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/react-recaptcha/-/react-recaptcha-2.3.5.tgz#a5db337125bb00fb13c2fa2e4ebfbe8b0cd06bb7"
@@ -8384,6 +8400,10 @@ react-select@^1.0.0-rc.5:
     classnames "^2.2.4"
     prop-types "^15.5.8"
     react-input-autosize "^2.1.0"
+
+react-sigma@^1.2.30:
+  version "1.2.30"
+  resolved "https://registry.yarnpkg.com/react-sigma/-/react-sigma-1.2.30.tgz#794f88e796c4f763158afe404d10d9635f848846"
 
 react-smooth@1.0.0:
   version "1.0.0"
