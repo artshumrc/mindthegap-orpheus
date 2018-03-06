@@ -89,7 +89,8 @@
     "underscore": "^1.8.3",
     "underscore.string": "^3.3.4",
     "uuid": "^3.1.0",
-    "validator": "^8.0.0"
+    "validator": "^8.0.0",
+    "webpack": "^4.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
