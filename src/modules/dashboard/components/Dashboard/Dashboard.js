@@ -10,31 +10,31 @@ import './Dashboard.css';
 
 
 
-const Dashboard = ({ collectionsCount, articlesCount, itemsCount, textsCount }) => (
+const Dashboard = ({ interviewsCount, eventsCount, itemsCount, peopleCount }) => (
 	<div className="dashboard">
 		<DashboardNav />
 		<DashboardCounts
-			collectionsCount={collectionsCount}
-			articlesCount={articlesCount}
+			interviewsCount={interviewsCount}
+			eventsCount={eventsCount}
 			itemsCount={itemsCount}
-			textsCount={textsCount}
+			peopleCount={peopleCount}
 		/>
 		<DashboardRecentActivity />
 	</div>
 	);
 
 Dashboard.propTypes = {
-	collectionsCount: PropTypes.number,
-	articlesCount: PropTypes.number,
+	interviewsCount: PropTypes.number,
+	eventsCount: PropTypes.number,
 	itemsCount: PropTypes.number,
-	textsCount: PropTypes.number,
+	peopleCount: PropTypes.number,
 };
 
 Dashboard.defaultProps = {
-	collectionsCount: 0,
-	articlesCount: 0,
+	interviewsCount: 0,
+	eventsCount: 0,
 	itemsCount: 0,
-	textsCount: 0,
+	peopleCount: 0,
 };
 
 export default Dashboard;

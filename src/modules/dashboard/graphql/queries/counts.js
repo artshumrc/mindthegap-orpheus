@@ -7,12 +7,12 @@ const query = gql`
 	query countsQuery($hostname: String) {
 		project(hostname: $hostname) {
 	    _id
-			collectionsCount
-			articlesCount
+			interviewsCount
+			eventsCount
 			pagesCount
 			itemsCount
 			filesCount
-			textsCount
+			peopleCount
 		}
 	}
 `;

@@ -6,28 +6,28 @@ import Dashboard from '../../components/Dashboard';
 
 
 const DashboardContainer = props => {
-	let collectionsCount = 0;
-	let articlesCount = 0;
+	let interviewsCount = 0;
+	let eventsCount = 0;
 	let itemsCount = 0;
-	let textsCount = 0;
+	let peopleCount = 0;
 
 	if (
 			props.countsQuery
 		&& props.countsQuery.project
 	) {
 		const project = props.countsQuery.project;
-		collectionsCount = project.collectionsCount;
-		articlesCount = project.articlesCount;
+		interviewsCount = project.interviewsCount;
+		eventsCount = project.eventsCount;
 		itemsCount = project.itemsCount;
-		textsCount = project.textsCount;
+		peopleCount = project.peopleCount;
 	}
 
 	return (
 		<Dashboard
-			 collectionsCount={collectionsCount}
-			 articlesCount={articlesCount}
+			 interviewsCount={interviewsCount}
+			 eventsCount={eventsCount}
 			 itemsCount={itemsCount}
-			 textsCount={textsCount}
+			 peopleCount={peopleCount}
 		/>
 	);
 }
