@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 
-const userLoggedIn = () => {
+const userIsLoggedIn = () => {
 	const token = cookies.get('token');
 
 	if (token) return true;
@@ -11,10 +11,12 @@ const userLoggedIn = () => {
 };
 
 const login = async (data) => {
-	if (userLoggedIn()) return null;
+	if (userIsLoggedIn()) {
+		throw new Error('User tried to login but user is already logged in');
+	}
 
 	try {
-		const res = await fetch(`${process.env.REACT_APP_SERVER}/${process.env.REACT_APP_LOGIN_URI}`, {
+		const res = await fetch(`${process.env.REACT_APP_AUTHENTICATION_API}/auth/login`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -30,7 +32,7 @@ const login = async (data) => {
 		}
 		const resJson = await res.json();
 		if (resJson.token) {
-			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orpheus.local';
+			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
 			cookies.set('token', resJson.token, { domain });
 			return resJson;
 		}
@@ -40,16 +42,18 @@ const login = async (data) => {
 };
 
 const logoutUser = async () => {
-	const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orpheus.local';
+	const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
 	cookies.remove('token', { domain });
 	cookies.remove('hello', { domain });
 };
 
 const register = async (data) => {
-	if (userLoggedIn()) return null;
+	if (userIsLoggedIn()) {
+		throw new Error('User tried to register but user is already logged in');
+	}
 
 	try {
-		const res = await fetch(`${process.env.REACT_APP_SERVER}/${process.env.REACT_APP_REGISTER_URI}`, {
+		const res = await fetch(`${process.env.REACT_APP_AUTHENTICATION_API}/auth/register`, {
 			method: 'POST',
 			credentials: 'include',
 			headers: {
@@ -60,22 +64,66 @@ const register = async (data) => {
 				...data
 			})
 		});
+
 		if (!res.ok) {
 			throw new Error(res.statusText);
 		}
+
 		const resJson = await res.json();
 		if (resJson.token) {
-			// TODO: Add domain: 'orphe.us' options to cookie for cross hostname auth
-			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orpheus.local';
+			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
 			cookies.set('token', resJson.token, { domain });
 			return resJson;
 		}
+
 		if (resJson.passwordStrength) {
 			throw new Error({
 				passwordError: true,
 				suggestion: resJson.passwordStrength.feedback.suggestions[0],
 			});
 		}
+
+	} catch (err) {
+		throw err;
+	}
+};
+
+const resetPassword = async (data) => {
+	if (userIsLoggedIn()) {
+		throw new Error('User tried to register but user is already logged in');
+	}
+
+	try {
+		const res = await fetch(`${process.env.REACT_APP_AUTHENTICATION_API}/auth/resetPassword`, {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				...data
+			})
+		});
+
+		if (!res.ok) {
+			throw new Error(res.statusText);
+		}
+
+		const resJson = await res.json();
+		if (resJson.token) {
+			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
+			cookies.set('token', resJson.token, { domain });
+			return resJson;
+		}
+
+		if (resJson.passwordStrength) {
+			throw new Error({
+				passwordError: true,
+				suggestion: resJson.passwordStrength.feedback.suggestions[0],
+			});
+		}
+
 	} catch (err) {
 		throw err;
 	}
@@ -85,7 +133,7 @@ const verifyToken = async () => {
 	const token = cookies.get('token');
 	if (token) {
 		try {
-			const res = await fetch(`${process.env.REACT_APP_SERVER}/${process.env.REACT_APP_VERIFY_TOKEN_URI}`, {
+			const res = await fetch(`${process.env.REACT_APP_AUTHENTICATION_API}/auth/verify-token`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: {
@@ -99,7 +147,7 @@ const verifyToken = async () => {
 			}
 			return res.json();
 		} catch (err) {
-			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orpheus.local';
+			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
 			cookies.remove('token', { domain });
 			cookies.remove('hello', { domain });
 
@@ -109,4 +157,4 @@ const verifyToken = async () => {
 	return null;
 };
 
-export { login, logoutUser, register, verifyToken };
+export { login, logoutUser, register, verifyToken, userIsLoggedIn, resetPassword };
