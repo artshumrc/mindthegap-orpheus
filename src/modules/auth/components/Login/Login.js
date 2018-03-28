@@ -55,11 +55,9 @@ class Login extends React.Component {
 				/>
 
 				<div className="at-resend-verification-email-link at-wrap">
-					{/*
 					<p>
 						Verification email lost? <a href="/send-again" id="at-resend-verification-email" className="at-link at-resend-verification-email">Send again.</a>
 					</p>
-					*/}
 				</div>
 			</div>
 		);

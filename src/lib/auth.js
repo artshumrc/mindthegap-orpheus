@@ -30,21 +30,25 @@ const login = async (data) => {
 		if (!res.ok) {
 			throw new Error(res.statusText);
 		}
+
 		const resJson = await res.json();
+
 		if (resJson.token) {
-			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
-			cookies.set('token', resJson.token, { domain });
+			// const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orphe.us';
+			cookies.set('token', resJson.token);
+
 			return resJson;
 		}
+
 	} catch (err) {
 		throw err;
 	}
 };
 
 const logoutUser = async () => {
-	const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
-	cookies.remove('token', { domain });
-	cookies.remove('hello', { domain });
+	// const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orphe.us';
+	cookies.remove('token');
+	cookies.remove('hello');
 };
 
 const register = async (data) => {
@@ -71,8 +75,8 @@ const register = async (data) => {
 
 		const resJson = await res.json();
 		if (resJson.token) {
-			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
-			cookies.set('token', resJson.token, { domain });
+			// const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orphe.us';
+			cookies.set('token', resJson.token);
 			return resJson;
 		}
 
@@ -112,8 +116,8 @@ const resetPassword = async (data) => {
 
 		const resJson = await res.json();
 		if (resJson.token) {
-			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
-			cookies.set('token', resJson.token, { domain });
+			// const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orphe.us';
+			cookies.set('token', resJson.token);
 			return resJson;
 		}
 
@@ -147,9 +151,9 @@ const verifyToken = async () => {
 			}
 			return res.json();
 		} catch (err) {
-			const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'chs.harvard.edu';
-			cookies.remove('token', { domain });
-			cookies.remove('hello', { domain });
+			// const domain = process.env.REACT_APP_COOKIE_DOMAIN || 'orphe.us';
+			cookies.remove('token');
+			cookies.remove('hello');
 
 			console.error(err);
 		}
