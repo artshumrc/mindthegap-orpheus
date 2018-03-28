@@ -17,7 +17,13 @@ const query = gql`
 					name
 				}
 			}
+
 			eventsCount
+			
+			files {
+				_id
+				name
+			}
 		}
 	}
 `;

@@ -17,8 +17,13 @@ const query = gql`
 					name
 				}
 			}
-			
+
 			interviewsCount
+
+			files {
+				_id
+				name
+			}
 		}
 	}
 `;

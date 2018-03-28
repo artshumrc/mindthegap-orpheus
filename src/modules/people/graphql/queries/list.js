@@ -19,7 +19,13 @@ const query = gql`
 					name
 				}
 			}
+
 			peopleCount
+
+			files {
+				_id
+				name
+			}
 		}
 	}
 `;

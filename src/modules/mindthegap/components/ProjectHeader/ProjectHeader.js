@@ -56,22 +56,22 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 						</li>
 					: ''}
 					<li>
-						<Link to="/" >
+						<Link to="/people" >
 							People
 						</Link>
 					</li>
 					<li>
-						<Link to="/" >
+						<Link to="/interviews" >
 							Interviews
 						</Link>
 					</li>
 					<li>
-						<Link to="/" >
+						<Link to="/events" >
 							Events
 						</Link>
 					</li>
 					<li>
-						<Link to="/" >
+						<Link to="/items" >
 							Items
 						</Link>
 					</li>
