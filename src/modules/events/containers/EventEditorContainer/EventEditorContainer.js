@@ -4,11 +4,11 @@ import autoBind from 'react-autobind';
 import { arrayMove } from 'react-sortable-hoc';
 
 import EventEditor from '../../components/EventEditor';
-import itemListQuery from '../../graphql/queries/list';
-import itemDetailQuery from '../../graphql/queries/detail';
-import itemCreateMutation from '../../graphql/mutations/create';
-import itemUpdateMutation from '../../graphql/mutations/update';
-import itemRemoveMutation from '../../graphql/mutations/remove';
+import eventListQuery from '../../graphql/queries/list';
+import eventDetailQuery from '../../graphql/queries/detail';
+import eventCreateMutation from '../../graphql/mutations/create';
+import eventUpdateMutation from '../../graphql/mutations/update';
+import eventRemoveMutation from '../../graphql/mutations/remove';
 
 
 class EventEditorContainer extends React.Component {
@@ -28,19 +28,19 @@ class EventEditorContainer extends React.Component {
 				!this.state.files
 			|| !this.state.files.length
 			)
-			&& nextProps.itemQuery
-			&& nextProps.itemQuery.project
-			&& nextProps.itemQuery.project.item
-			&& nextProps.itemQuery.project.item.files
+			&& nextProps.eventQuery
+			&& nextProps.eventQuery.project
+			&& nextProps.eventQuery.project.event
+			&& nextProps.eventQuery.project.event.files
 		) {
 			this.setState({
-				files: nextProps.itemQuery.project.item.files
+				files: nextProps.eventQuery.project.event.files
 			});
 		}
 	}
 
 	handleSubmit(_values) {
-		const { itemCreate, itemUpdate, router } = this.props;
+		const { eventCreate, eventUpdate, router } = this.props;
 		const _files = this.state.files;
 		const values = Object.assign({}, _values);
 
@@ -58,7 +58,7 @@ class EventEditorContainer extends React.Component {
 				// default type
 				let type = 'text';
 
-				// default value (files/items handled by extra state)
+				// default value (files/events handled by extra state)
 				let value = metadataField.value;
 
 				// set type from metadata redux form
@@ -105,17 +105,17 @@ class EventEditorContainer extends React.Component {
 
 		// create or update
 		if ('_id' in values) {
-			itemUpdate(values, files)
+			eventUpdate(values, files)
 				.then((response) => {
-					router.replace(`/items/${values._id}/${values.slug}`);
+					router.replace(`/events/${values._id}/${values.slug}`);
 				})
 				.catch((err) => {
 					console.error(err);
 				});
 		} else {
-			itemCreate(values, files)
+			eventCreate(values, files)
 				.then((response) => {
-					router.replace('/items/');
+					router.replace('/events/');
 				})
 				.catch((err) => {
 					console.error(err);
@@ -123,12 +123,12 @@ class EventEditorContainer extends React.Component {
 		}
 	}
 
-	handleRemove(itemId) {
-		const { itemRemove, router } = this.props;
+	handleRemove(eventId) {
+		const { eventRemove, router } = this.props;
 
-		itemRemove(itemId)
+		eventRemove(eventId)
 			.then((response) => {
-				router.replace('/items');
+				router.replace('/events');
 			})
 			.catch((err) => {
 				console.error(err);
@@ -195,20 +195,20 @@ class EventEditorContainer extends React.Component {
 	render() {
 		const { files } = this.state;
 
-		let item;
+		let event;
 
 		if (
-			this.props.itemQuery
-			&& this.props.itemQuery.project
+			this.props.eventQuery
+			&& this.props.eventQuery.project
 		) {
-			item = this.props.itemQuery.project.item;
+			event = this.props.eventQuery.project.event;
 		}
 
 		return (
 			<EventEditor
 				onSubmit={this.handleSubmit}
 				onRemove={this.handleRemove}
-				initialValues={item}
+				initialValues={event}
 				files={files}
 				addFile={this.addFile}
 				removeFile={this.removeFile}
@@ -221,6 +221,6 @@ class EventEditorContainer extends React.Component {
 }
 
 export default compose(
-	itemCreateMutation, itemUpdateMutation, itemRemoveMutation, itemDetailQuery,
-	itemListQuery,
+	eventCreateMutation, eventUpdateMutation, eventRemoveMutation, eventDetailQuery,
+	eventListQuery,
 )(EventEditorContainer);

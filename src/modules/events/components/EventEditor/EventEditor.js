@@ -57,11 +57,10 @@ class ItemEditor extends React.Component {
 					<div className="itemEditorFormInputOuter ">
 						<label>Start date:</label>
 						<Field
-							name="title"
-							type="text"
+							name="dateStart"
+							type="date"
 							component="input"
 							placeholder="The event's start date"
-							validate={[required, maxLength200]}
 						/>
 						<span
 							className="itemEditorFormHelp"
@@ -73,11 +72,10 @@ class ItemEditor extends React.Component {
 					<div className="itemEditorFormInputOuter ">
 						<label>End date:</label>
 						<Field
-							name="title"
-							type="text"
+							name="dateEnd"
+							type="date"
 							component="input"
 							placeholder="The event's end date"
-							validate={[required, maxLength200]}
 						/>
 						<span
 							className="itemEditorFormHelp"
@@ -89,11 +87,10 @@ class ItemEditor extends React.Component {
 					<div className="itemEditorFormInputOuter ">
 						<label>Date (for display):</label>
 						<Field
-							name="title"
+							name="dateDisplay"
 							type="text"
 							component="input"
-							placeholder="The date that should be displayed to the user" 
-							validate={[required, maxLength200]}
+							placeholder="The date that should be displayed to the user"
 						/>
 						<span
 							className="itemEditorFormHelp"

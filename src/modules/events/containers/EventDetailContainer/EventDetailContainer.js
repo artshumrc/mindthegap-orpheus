@@ -6,9 +6,9 @@ import autoBind from 'react-autobind';
 import EventDetail from '../../components/EventDetail';
 
 // graphql
-import itemListQuery from '../../graphql/queries/list';
-import itemDetailQuery from '../../graphql/queries/detail';
-import itemRemoveMutation from '../../graphql/mutations/remove';
+import eventListQuery from '../../graphql/queries/list';
+import eventDetailQuery from '../../graphql/queries/detail';
+import eventRemoveMutation from '../../graphql/mutations/remove';
 
 
 class EventDetailContainer extends React.Component {
@@ -17,12 +17,12 @@ class EventDetailContainer extends React.Component {
 		autoBind(this);
 	}
 
-	handleRemove(itemId) {
-		const { itemRemove, router } = this.props;
+	handleRemove(eventId) {
+		const { eventRemove, router } = this.props;
 
-		itemRemove(itemId)
+		eventRemove(eventId)
 			.then((response) => {
-				router.replace('/items');
+				router.replace('/events');
 			})
 			.catch((err) => {
 				console.error(err);
@@ -30,20 +30,20 @@ class EventDetailContainer extends React.Component {
 	}
 
 	render() {
-		let item = [];
+		let event = [];
 		let userIsAdmin = false;
 
 		if (
-			this.props.itemQuery
-			&& this.props.itemQuery.project
+			this.props.eventQuery
+			&& this.props.eventQuery.project
 		) {
-			item = this.props.itemQuery.project.item;
-			userIsAdmin = this.props.itemQuery.project.userIsAdmin;
+			event = this.props.eventQuery.project.event;
+			userIsAdmin = this.props.eventQuery.project.userIsAdmin;
 		}
 
 		return (
 			<EventDetail
-				{...item}
+				{...event}
 				userIsAdmin={userIsAdmin}
 				handleRemove={this.handleRemove}
 			/>
@@ -52,5 +52,5 @@ class EventDetailContainer extends React.Component {
 }
 
 export default compose(
-	itemListQuery, itemDetailQuery, itemRemoveMutation
+	eventListQuery, eventDetailQuery, eventRemoveMutation
 )(EventDetailContainer);

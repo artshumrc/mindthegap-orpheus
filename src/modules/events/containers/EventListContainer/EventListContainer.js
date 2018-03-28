@@ -4,41 +4,41 @@ import { compose } from 'react-apollo';
 import _ from 'underscore';
 
 import EventList from '../../components/EventList';
-import itemListQuery from '../../graphql/queries/list';
+import eventListQuery from '../../graphql/queries/list';
 
 
 class EventListContainer extends React.Component {
 	render() {
-		let items = [];
+		let events = [];
 
 		if (
-			this.props.itemListQuery
-			&& this.props.itemListQuery.project
+			this.props.eventListQuery
+			&& this.props.eventListQuery.project
 		) {
-			items = this.props.itemListQuery.project.items;
+			events = this.props.eventListQuery.project.events;
 		}
 
-		if (items.length && this.props.limit && this.props.random) {
-			let _items = [];
+		if (events.length && this.props.limit && this.props.random) {
+			let _events = [];
 
 			for (let i = 0; i < this.props.limit; i++){
-				_items.push(_.sample(items));
+				_events.push(_.sample(events));
 			}
-			items = _items;
+			events = _events;
 		}
 
 		return (
 			<EventList
-				items={items}
+				events={events}
 			/>
 		);
 	}
 }
 
 EventListContainer.propTypes = {
-	itemListQuery: PropTypes.object,
+	eventListQuery: PropTypes.object,
 };
 
 export default compose(
-	itemListQuery,
+	eventListQuery,
 )(EventListContainer);
