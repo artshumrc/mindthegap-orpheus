@@ -36,7 +36,6 @@ tramp
 .Trashes
 ehthumbs.db
 Thumbs.db
-*.sh
 .env*.local
 
 doc/
