@@ -29,6 +29,16 @@ class LeftMenu extends React.Component {
 
 		return (
 			<div>
+				{project.userIsAdmin ?
+					<div>
+						<MenuItem
+							to="/dashboard"
+							onClick={closeLeftMenu}
+						>
+							Dashboard
+						</MenuItem>
+					</div>
+				: ''}
 				<MenuItem
 					to="/"
 					onClick={closeLeftMenu}
@@ -124,22 +134,13 @@ class LeftMenu extends React.Component {
 						</MenuSubItem>
 					</div>
 				: ''}
-
 				{project.userIsAdmin ?
-					<div>
-						<MenuItem
-							to="/dashboard"
-							onClick={closeLeftMenu}
-						>
-							Dashboard
-						</MenuItem>
-						<MenuItem
-							to="/dashboard/settings"
-							onClick={closeLeftMenu}
-						>
-							Settings
-						</MenuItem>
-					</div>
+					<MenuItem
+						to="/dashboard/settings"
+						onClick={closeLeftMenu}
+					>
+						Settings
+					</MenuItem>
 				: ''}
 			</div>
 		);
