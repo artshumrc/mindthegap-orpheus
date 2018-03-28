@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Cookies from 'universal-cookie';
 
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
@@ -18,6 +19,11 @@ import { logoutUser } from '../../../lib/auth';
 import getCurrentProjectHostname from '../../../lib/getCurrentProjectHostname';
 
 import './LeftMenu.css';
+
+
+
+const cookies = new Cookies();
+
 
 
 class LeftMenu extends React.Component {
@@ -156,9 +162,12 @@ class LeftMenu extends React.Component {
 			isMainOrpheusProject = true;
 		}
 
+		const token = cookies.get('token');
+
 		if (!project) {
 			return null;
 		}
+
 		return (
 			<Drawer
 				open={leftMenuOpen}
@@ -194,14 +203,16 @@ class LeftMenu extends React.Component {
 								Projects
 							</MenuItem>
 							<Divider />
-
-							<MenuItem
-								to="/"
-								onClick={dispatchLogout}
-							>
-								Sign out
-							</MenuItem>
 						</div>
+					: ''}
+
+					{token ?
+						<MenuItem
+							to="/"
+							onClick={dispatchLogout}
+						>
+							Sign out
+						</MenuItem>
 					:
 						<MenuItem
 							onClick={dispatchToggleAuthModal}

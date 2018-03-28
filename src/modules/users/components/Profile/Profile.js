@@ -27,6 +27,8 @@ class Profile extends React.Component {
 							component="input"
 							placeholder="Username"
 							validate={[required, maxLength200]}
+							disabled
+							className="disabled"
 						/>
 					</div>
 

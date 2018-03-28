@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Home
+import authRoutes from '../modules/auth/routes';
 
 // Home
 import homeRoute from '../modules/mindthegap/routes';
@@ -66,6 +68,9 @@ export default (
 
 		{/* Routes specific to projects (and collections and items) */}
 		{/* projectRoutes */}
+
+		{/* Authentication routes */}
+		{authRoutes}
 
 		{/* Routes for single pages */}
 		{pageRoutes}
