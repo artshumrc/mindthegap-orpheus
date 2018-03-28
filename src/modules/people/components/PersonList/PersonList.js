@@ -16,7 +16,7 @@ const PersonList = ({ people, horizontal }) => {
 	}
 
 	return (
-		<div className={`personList ${classes.join(' ')}`}>
+		<div className={`itemList personList ${classes.join(' ')}`}>
 			{people.map((listItem, i) => (
 				<PersonListItem
 					key={`${listItem.slug}-${i}`}

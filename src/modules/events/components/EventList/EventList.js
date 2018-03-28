@@ -16,7 +16,7 @@ const EventList = ({ events, horizontal }) => {
 	}
 
 	return (
-		<div className={`eventList ${classes.join(' ')}`}>
+		<div className={`itemList eventList ${classes.join(' ')}`}>
 			{events.map((listItem, i) => (
 				<EventListItem
 					key={`${listItem.slug}-${i}`}

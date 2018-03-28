@@ -16,7 +16,7 @@ const InterviewList = ({ interviews, horizontal }) => {
 	}
 
 	return (
-		<div className={`interviewList ${classes.join(' ')}`}>
+		<div className={`itemList interviewList ${classes.join(' ')}`}>
 			{interviews.map((listItem, i) => (
 				<InterviewListItem
 					key={`${listItem.slug}-${i}`}
