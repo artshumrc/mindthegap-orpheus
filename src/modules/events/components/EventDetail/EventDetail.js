@@ -11,13 +11,22 @@ import Discussion from '../../../comments/components/Discussion';
 import './EventDetail.css';
 
 const EventDetail = ({
-	_id, title, slug, description, tags, metadata, files, commentsCount, comments,
+	_id, title, slug, dateDisplay, description, tags, metadata, files, commentsCount, comments,
 	userIsAdmin, manifest, handleRemove
 })=> {
 
 	if (!_id) {
 		// TODO: loading or no results
 		return null;
+	}
+
+	let _metadata = metadata.slice();
+	if (dateDisplay) {
+		_metadata.push({
+			type: 'text',
+			label: 'Date',
+			value: dateDisplay,
+		});
 	}
 
 	return (
@@ -44,7 +53,7 @@ const EventDetail = ({
 					tags={tags}
 				/>
 				<ItemMetaFields
-					metafields={metadata}
+					metafields={_metadata}
 				/>
 				<Discussion
 					commentsCount={commentsCount}

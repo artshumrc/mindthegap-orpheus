@@ -12,6 +12,9 @@ const query = gql`
 				_id
 				title
 				slug
+				dateStart
+				dateEnd
+				dateDisplay
 				description
 				projectId
 

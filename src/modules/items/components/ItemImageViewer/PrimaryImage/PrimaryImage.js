@@ -10,7 +10,7 @@ const PrimaryImage = ({ image, itemMiradorLink }) => {
 		return null;
 	}
 
-	const src = `//iiif.orphe.us/${image.name}/full/1400,/0/default.jpg`;
+	const src = `//iiif.orphe.us/${image.name}/full/1000,/0/default.jpg`;
 
 	const styles = {
 		backgroundImage: `url(${src})`,
