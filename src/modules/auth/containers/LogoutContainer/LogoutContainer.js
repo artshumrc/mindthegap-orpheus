@@ -1,12 +1,12 @@
 import React from 'react';
+import { compose } from 'react-apollo';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import { logoutUser } from '../../../../lib/auth';
-
-
+import { logout } from '../../actions';
 
 const LogoutContainer = props => {
-
-	logoutUser();
 
 	return (
 		<div
@@ -19,10 +19,33 @@ const LogoutContainer = props => {
 			}}
     >
 			<p>
-        You have successfully logged out.
+        Log out of the project
 			</p>
+			<button
+				onClick={props.dispatchLogout}
+      >
+        Log out
+			</button>
 		</div>
 	);
-};
+}
 
-export default LogoutContainer;
+const mapStateToProps = state => ({
+	authMode: state.auth.authMode,
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	dispatchLogout: () => {
+		dispatch(logout(logoutUser));
+		console.log(document.cookie);
+    // window.location = '/auth';
+	},
+});
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(LogoutContainer);

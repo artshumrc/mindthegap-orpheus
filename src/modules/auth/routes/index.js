@@ -13,9 +13,11 @@ import LogoutContainer from '../containers/LogoutContainer';
 
 export default (
 	<div>
-		<Route path="/auth" component={ProjectLayout}>
+		<Route path="/sign-in" component={ProjectLayout}>
 			<IndexRoute component={AuthContainer} />
-			<Route path="logout" component={LogoutContainer} />
+		</Route>
+		<Route path="/logout" component={ProjectLayout}>
+			<IndexRoute component={LogoutContainer} />
 		</Route>
 	</div>
 );

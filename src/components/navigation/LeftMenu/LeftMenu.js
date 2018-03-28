@@ -18,9 +18,8 @@ import { logoutUser } from '../../../lib/auth';
 // lib
 import getCurrentProjectHostname from '../../../lib/getCurrentProjectHostname';
 
+
 import './LeftMenu.css';
-
-
 
 const cookies = new Cookies();
 
