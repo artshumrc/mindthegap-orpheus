@@ -7,9 +7,6 @@ const eventCreate = gql`
 mutation eventCreate($hostname: String!, $event: EventInputType!, $files: [FileInputType]) {
 	eventCreate(hostname: $hostname, event: $event, files: $files) {
 		_id
-		title
-		slug
-		description
 	}
 }
 `;

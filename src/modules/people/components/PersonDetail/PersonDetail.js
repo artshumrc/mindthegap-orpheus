@@ -13,7 +13,7 @@ import Discussion from '../../../comments/components/Discussion';
 import './PersonDetail.css';
 
 const PersonDetail = ({
-	_id, title, slug, description, tags, metadata, files, commentsCount, comments,
+	_id, name, slug, bio, tags, metadata, files, commentsCount, comments,
 	userIsAdmin, manifest, handleRemove
 })=> {
 
@@ -35,12 +35,12 @@ const PersonDetail = ({
 			<div className="personDetailColumn">
 				<ItemTitle
 					_id={_id}
-					title={title}
+					title={name}
 					editLink={userIsAdmin ? `/people/${_id}/${slug}/edit` : null}
 					handleRemove={userIsAdmin ? handleRemove : null}
 				/>
 				<ItemDescription
-					description={description}
+					description={bio}
 				/>
 				<Tags
 					tags={tags}

@@ -7,9 +7,6 @@ const personCreate = gql`
 mutation personCreate($hostname: String!, $person: PersonInputType!, $files: [FileInputType]) {
 	personCreate(hostname: $hostname, person: $person, files: $files) {
 		_id
-		title
-		slug
-		description
 	}
 }
 `;

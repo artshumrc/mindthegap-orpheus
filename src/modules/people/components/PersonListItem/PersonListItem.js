@@ -31,7 +31,7 @@ const PersonListItem = (props) => {
 			: ''}
 			<Tags tags={props.tags} />
 			<Link to={itemUrl}>
-				<h3>{props.title}</h3>
+				<h3>{props.name}</h3>
 			</Link>
 			<p className="description">
 				{_s.prune(props.description, 90)}

@@ -4,41 +4,41 @@ import { compose } from 'react-apollo';
 import _ from 'underscore';
 
 import PersonList from '../../components/PersonList';
-import itemListQuery from '../../graphql/queries/list';
+import personListQuery from '../../graphql/queries/list';
 
 
 class PersonListContainer extends React.Component {
 	render() {
-		let items = [];
+		let people = [];
 
 		if (
-			this.props.itemListQuery
-			&& this.props.itemListQuery.project
+			this.props.personListQuery
+			&& this.props.personListQuery.project
 		) {
-			items = this.props.itemListQuery.project.items;
+			people = this.props.personListQuery.project.people;
 		}
 
-		if (items.length && this.props.limit && this.props.random) {
-			let _items = [];
+		if (people.length && this.props.limit && this.props.random) {
+			let _people = [];
 
 			for (let i = 0; i < this.props.limit; i++){
-				_items.push(_.sample(items));
+				_people.push(_.sample(people));
 			}
-			items = _items;
+			people = _people;
 		}
 
 		return (
 			<PersonList
-				items={items}
+				people={people}
 			/>
 		);
 	}
 }
 
 PersonListContainer.propTypes = {
-	itemListQuery: PropTypes.object,
+	personListQuery: PropTypes.object,
 };
 
 export default compose(
-	itemListQuery,
+	personListQuery,
 )(PersonListContainer);

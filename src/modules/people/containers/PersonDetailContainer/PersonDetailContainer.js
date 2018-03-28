@@ -6,9 +6,9 @@ import autoBind from 'react-autobind';
 import PersonDetail from '../../components/PersonDetail';
 
 // graphql
-import itemListQuery from '../../graphql/queries/list';
-import itemDetailQuery from '../../graphql/queries/detail';
-import itemRemoveMutation from '../../graphql/mutations/remove';
+import personListQuery from '../../graphql/queries/list';
+import personDetailQuery from '../../graphql/queries/detail';
+import personRemoveMutation from '../../graphql/mutations/remove';
 
 
 class PersonDetailContainer extends React.Component {
@@ -17,12 +17,12 @@ class PersonDetailContainer extends React.Component {
 		autoBind(this);
 	}
 
-	handleRemove(itemId) {
-		const { itemRemove, router } = this.props;
+	handleRemove(personId) {
+		const { personRemove, router } = this.props;
 
-		itemRemove(itemId)
+		personRemove(personId)
 			.then((response) => {
-				router.replace('/items');
+				router.replace('/persons');
 			})
 			.catch((err) => {
 				console.error(err);
@@ -30,20 +30,20 @@ class PersonDetailContainer extends React.Component {
 	}
 
 	render() {
-		let item = [];
+		let person = [];
 		let userIsAdmin = false;
 
 		if (
-			this.props.itemQuery
-			&& this.props.itemQuery.project
+			this.props.personQuery
+			&& this.props.personQuery.project
 		) {
-			item = this.props.itemQuery.project.item;
-			userIsAdmin = this.props.itemQuery.project.userIsAdmin;
+			person = this.props.personQuery.project.person;
+			userIsAdmin = this.props.personQuery.project.userIsAdmin;
 		}
 
 		return (
 			<PersonDetail
-				{...item}
+				{...person}
 				userIsAdmin={userIsAdmin}
 				handleRemove={this.handleRemove}
 			/>
@@ -52,5 +52,5 @@ class PersonDetailContainer extends React.Component {
 }
 
 export default compose(
-	itemListQuery, itemDetailQuery, itemRemoveMutation
+	personListQuery, personDetailQuery, personRemoveMutation
 )(PersonDetailContainer);

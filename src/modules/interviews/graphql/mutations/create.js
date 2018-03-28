@@ -7,9 +7,6 @@ const interviewCreate = gql`
 mutation interviewCreate($hostname: String!, $interview: InterviewInputType!, $files: [FileInputType]) {
 	interviewCreate(hostname: $hostname, interview: $interview, files: $files) {
 		_id
-		title
-		slug
-		description
 	}
 }
 `;

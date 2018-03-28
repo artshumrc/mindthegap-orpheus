@@ -61,7 +61,7 @@ class PersonEditorContainer extends React.Component {
 				// default type
 				let type = 'text';
 
-				// default value (files/persons handled by extra state)
+				// default value (files/people handled by extra state)
 				let value = metadataField.value;
 
 				// set type from metadata redux form
@@ -110,7 +110,7 @@ class PersonEditorContainer extends React.Component {
 		if ('_id' in values) {
 			personUpdate(values, files)
 				.then((response) => {
-					router.replace(`/persons/${values._id}/${values.slug}`);
+					router.replace(`/people/${values._id}/${values.slug}`);
 				})
 				.catch((err) => {
 					console.error(err);
@@ -118,7 +118,7 @@ class PersonEditorContainer extends React.Component {
 		} else {
 			personCreate(values, files)
 				.then((response) => {
-					router.replace('/persons/');
+					router.replace('/people/');
 				})
 				.catch((err) => {
 					console.error(err);
@@ -131,7 +131,7 @@ class PersonEditorContainer extends React.Component {
 
 		personRemove(personId)
 			.then((response) => {
-				router.replace('/persons');
+				router.replace('/people');
 			})
 			.catch((err) => {
 				console.error(err);
