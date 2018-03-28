@@ -31,6 +31,7 @@ class MetadataField extends React.Component {
 		) {
 			this.setState({
 				type: nextProps.type,
+				defaultValue: nextProps.defaultValue,
 			});
 		}
 	}
@@ -42,7 +43,7 @@ class MetadataField extends React.Component {
 	}
 
 	render() {
-		const { field } = this.props;
+		const { field, defaultValue } = this.props;
 
 		return (
 			<div className="itemEditorMetadataField">
@@ -74,6 +75,7 @@ class MetadataField extends React.Component {
 						<MetadataFieldValueInput
 							field={field}
 							type={this.state.type}
+							defaultValue={defaultValue}
 							handleUpdateMetadata={this.props.handleUpdateMetadata}
 						/>
 					</Col>

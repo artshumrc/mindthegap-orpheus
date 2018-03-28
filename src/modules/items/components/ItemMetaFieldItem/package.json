@@ -1,0 +1,6 @@
+{
+  "name": "ItemMetaFieldItem",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ItemMetaFieldItem.js"
+}

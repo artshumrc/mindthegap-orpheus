@@ -1,0 +1,6 @@
+{
+  "name": "CollectionCover",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./CollectionCover.js"
+}

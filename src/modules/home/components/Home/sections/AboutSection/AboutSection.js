@@ -1,5 +1,4 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
 import _ from 'underscore';
 
 import ExampleItem from '../ExampleItem';
@@ -32,37 +31,31 @@ export default class AboutSection extends React.Component {
 
 		return (
 			<section id="learn">
-				<Grid>
-					<Row>
-						<Col>
-							<div className="aboutIntro">
-								<div className="aboutImage">
-									<ExampleItem
-										{..._.sample(exampleItems)}
-									/>
-								</div>
-								<blockquote className="aboutLead">
-									<p>
-										A thing of beauty is a joy forever
-										<br />
-										. . . it will never pass into nothingness.
-									</p>
-									<p className="quoteByline">
-										John Keats, &quot;Endymion&quot;
-									</p>
-								</blockquote>
-							</div>
-							<div className="aboutText">
-								<p>
-									Preserve the items in your archive, museum, or library digitially for the next generation.
-								</p>
-								<p>
-									We partner with you to plan for the full lifetime of your digital collection, share it with who you want to share it with, and archive it for the perpetual future.
-								</p>
-							</div>
-						</Col>
-					</Row>
-				</Grid>
+				<div className="aboutIntro">
+					<div className="aboutImage">
+						<ExampleItem
+							{..._.sample(exampleItems)}
+						/>
+					</div>
+					<blockquote className="aboutLead">
+						<p>
+							A thing of beauty is a joy forever
+							<br />
+							. . . it will never pass into nothingness.
+						</p>
+						<p className="quoteByline">
+							John Keats, &quot;Endymion&quot;
+						</p>
+					</blockquote>
+				</div>
+				<div className="aboutText">
+					<p>
+						Preserve the items in your archive, museum, or library digitally for the next generation.
+					</p>
+					<p>
+						We partner with you to plan for the full lifetime of your digital collection, share it with who you want to share it with, and archive it for the perpetual future.
+					</p>
+				</div>
 			</section>
 		);
 	}

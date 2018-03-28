@@ -63,7 +63,9 @@
 			height: 60px;
 			display: block;
 			@include transition(all 100ms linear);
-			font-size: 14px;
+			display: block;
+			height: 60px;
+			font-size: 12px;
 
 			&:hover {
 				background: rgba(255, 255, 255, 0.9);

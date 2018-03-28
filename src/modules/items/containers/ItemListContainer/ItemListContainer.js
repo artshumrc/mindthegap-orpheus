@@ -18,12 +18,18 @@ class ItemListContainer extends React.Component {
 			items = this.props.itemListQuery.project.items;
 		}
 
-		if (items.length && this.props.limit && this.props.random) {
+		if (
+			items.length
+			&& this.props.limit
+			&& this.props.random
+			&& items.length > this.props.limit
+		) {
 			let _items = [];
 
 			for (let i = 0; i < this.props.limit; i++){
 				_items.push(_.sample(items));
 			}
+			
 			items = _items;
 		}
 

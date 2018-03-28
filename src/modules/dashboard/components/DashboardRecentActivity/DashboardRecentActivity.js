@@ -11,7 +11,7 @@ import './DashboardRecentActivity.css';
 const DashboardRecentActivity = props => (
 	<div className="dashboardRecentActivity">
 		<Row>
-			<Col>
+			<Col md={12}>
 				<h2>Recent Activity</h2>
 				<hr />
 			</Col>

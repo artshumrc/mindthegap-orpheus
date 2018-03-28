@@ -25,16 +25,23 @@
 	h3 {
 		font-family: $font-title-variant;
 		color: $text-primary;
-		cursor:pointer;
+		cursor: pointer;
 		word-wrap: break-word;
+		padding: 10px 0 5px;
 	}
 
 	.description {
-		font-size: 14px;
+		font-size: 16px;
 		font-family: $font-body;
 		font-weight: 100;
 		color: $text-secondary;
-		padding: 10px 0;
+		padding: 5px 0;
 		line-height: 1.5em;
+	}
+}
+
+#home {
+	.itemListItem p {
+		font-size: 16px;
 	}
 }

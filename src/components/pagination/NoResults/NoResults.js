@@ -8,7 +8,7 @@ import './NoResults.css';
 const NoResults = ({ message }) => (
 	<Grid>
 		<Row>
-			<Col>
+			<Col md={12}>
 				<div className="noResults">
 					<p>
 						{message}

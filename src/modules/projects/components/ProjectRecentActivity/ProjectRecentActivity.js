@@ -13,7 +13,7 @@ const ProjectRecentActivity = ({ activityFeed }) => (
 		))}
 		{activityFeed.length === 0 ?
 			<Row>
-				<Col>
+				<Col md={12}>
 					<div className="noActivity">
 						<p>
 							There is no recent activity for this project.

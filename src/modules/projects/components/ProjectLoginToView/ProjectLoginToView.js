@@ -14,7 +14,7 @@ const ProjectLoginToView = props => (
 		<Header />
 		<Grid>
 			<Row>
-				<Col>
+				<Col md={12}>
 					<div className="projectLoginToViewContent">
 						<h1>
 							Please login to view this project.

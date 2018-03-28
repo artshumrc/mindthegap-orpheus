@@ -9,7 +9,7 @@ const ItemCollection = props => (
 	<div className="itemCollection">
 		<Grid>
 			<Row>
-				<Col>
+				<Col md={12}>
 					<h4>Related Items</h4>
 				</Col>
 			</Row>

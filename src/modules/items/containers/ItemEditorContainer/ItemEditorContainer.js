@@ -70,13 +70,11 @@ class ItemEditorContainer extends React.Component {
 				}
 
 				// set extra field value from state
-				if (!value) {
-					this.state.metadataFieldsExtra.forEach(metadataFieldExtra => {
-						if (metadataFieldExtra.field === `metadata[${i}]`) {
-							value = JSON.stringify(metadataFieldExtra.value);
-						}
-					});
-				}
+				this.state.metadataFieldsExtra.forEach(metadataFieldExtra => {
+					if (metadataFieldExtra.field === `metadata[${i}]`) {
+						value = JSON.stringify(metadataFieldExtra.value);
+					}
+				});
 
 				metadata.push({
 					type,
@@ -85,6 +83,10 @@ class ItemEditorContainer extends React.Component {
 				});
 			});
 		}
+
+
+
+		// set metadata
 		values.metadata = metadata;
 
 		// sanitize files
@@ -210,6 +212,7 @@ class ItemEditorContainer extends React.Component {
 				onRemove={this.handleRemove}
 				initialValues={item}
 				files={files}
+				metadata={item ? item.metadata : []}
 				addFile={this.addFile}
 				removeFile={this.removeFile}
 				onSortEnd={this.onSortEnd}

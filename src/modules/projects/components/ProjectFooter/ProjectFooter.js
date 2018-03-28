@@ -22,7 +22,7 @@ class Footer extends React.Component {
 			<section id="footer" className="projectFooter">
 				<Grid>
 					<Row>
-						<Col>
+						<Col md={12}>
 							<ul className="projectFooterNav">
 								<li>
 									<Link
@@ -42,7 +42,7 @@ class Footer extends React.Component {
 						</Col>
 					</Row>
 					<Row>
-						<Col>
+						<Col md={12}>
 							{project ?
 								<span className="footerCopyright">
 									© Copyright {project.title}, {year}

@@ -14,7 +14,7 @@ const ProjectHelp = () => (
 			<h1>Contact Support</h1>
 
 			<Row>
-				<Col>
+				<Col md={12}>
 					<div className="contactSupport" />
 				</Col>
 			</Row>

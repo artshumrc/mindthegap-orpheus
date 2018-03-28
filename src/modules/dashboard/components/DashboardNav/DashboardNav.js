@@ -67,6 +67,7 @@ const DashboardNav = (props) => {
 					>
 						Articles
 					</Link>
+					{/*
 					<Link
 						to="/texts/create"
 						className={`
@@ -78,6 +79,7 @@ const DashboardNav = (props) => {
 					>
 						Texts
 					</Link>
+					*/}
 				</div>
 			</div>
 			<Link

@@ -10,27 +10,28 @@ import './DashboardCounts.css';
 const DashboardCounts = ({ collectionsCount, articlesCount, itemsCount, textsCount }) => (
 	<div className="dashboardCounts">
 		<Row>
-			<Col md={3}>
+			<Col md={4}>
 				<CountSection
 					label="Collections"
 					count={collectionsCount}
 					link="/collections"
 				/>
 			</Col>
-			<Col md={3}>
+			<Col md={4}>
 				<CountSection
 					label="Items"
 					count={itemsCount}
 					link="/items"
 				/>
 			</Col>
-			<Col md={3}>
+			<Col md={4}>
 				<CountSection
 					label="Articles"
 					count={articlesCount}
 					link="/articles"
 				/>
 			</Col>
+			{/*
 			<Col md={3}>
 				<CountSection
 					label="Texts"
@@ -38,6 +39,7 @@ const DashboardCounts = ({ collectionsCount, articlesCount, itemsCount, textsCou
 					link="/texts"
 				/>
 			</Col>
+			*/}
 		</Row>
 	</div>
 );

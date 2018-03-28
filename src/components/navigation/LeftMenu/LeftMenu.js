@@ -98,6 +98,7 @@ class LeftMenu extends React.Component {
 						</MenuSubItem>
 					</div>
 				: ''}
+				{/*
 				<MenuItem
 					to="/texts"
 					onClick={closeLeftMenu}
@@ -121,6 +122,7 @@ class LeftMenu extends React.Component {
 						</MenuSubItem>
 					</div>
 				: ''}
+				*/}
 				{project.userIsAdmin ?
 					<div>
 						<MenuItem

@@ -40,7 +40,7 @@ export default class PermissionsSection extends React.Component {
 									<div className="permissionsInfoBlock">
 										<h4>Linked Data Sharing</h4>
 										<p>
-											When you want to share content, you can seamless integrate collections via using shared linked data ontologies
+											When you want to share content, you can seamlessly integrate collections via using shared linked data ontologies
 										</p>
 									</div>
 								</Col>

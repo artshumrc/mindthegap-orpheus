@@ -14,7 +14,7 @@ const ProjectNotAuthorized = props => (
 		<Header />
 		<Grid>
 			<Row>
-				<Col>
+				<Col md={12}>
 					<div className="projectNotAuthorizedContent">
 						<h1>
 							You are not authorized to view this project

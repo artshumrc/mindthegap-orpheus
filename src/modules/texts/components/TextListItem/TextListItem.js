@@ -10,7 +10,7 @@ const TextListItem = (props) => {
 	const textUrl = `/texts/${props._id}/${props.slug}`;
 	let thumbnail = null;
 	if (props.coverImage) {
-		thumbnail = `http://iiif.orphe.us/${props.coverImage}/full/210,/0/default.jpg`;
+		thumbnail = `https://iiif.orphe.us/${props.coverImage}/full/210,/0/default.jpg`;
 	}
 
 	if (

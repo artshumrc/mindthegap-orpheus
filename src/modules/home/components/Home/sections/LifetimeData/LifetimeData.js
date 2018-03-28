@@ -177,7 +177,7 @@ class LifetimeData extends React.Component {
 			description: 'Publish as much of your collections as you want and embed item records in a beautifully designed content authoring interface',
 		}, {
 			label: 'Export',
-			description: 'Begin by entering your data in a digital form using our sophisticated but simple data entry forms',
+			description: 'At the end of the collection’s active timespan, export all your item records in an archival data format of your choice',
 		}];
 
 		return (

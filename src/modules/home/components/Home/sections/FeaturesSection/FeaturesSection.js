@@ -49,7 +49,7 @@ export default class FeaturesSection extends React.Component {
 					<div className="feature">
 						<div className="feature-title">
 							<i className="mdi mdi-database" />
-							<h4>Long term storage</h4>
+							<h4>Long-term storage</h4>
 						</div>
 						<hr />
 						<p>

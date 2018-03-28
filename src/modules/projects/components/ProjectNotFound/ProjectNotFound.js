@@ -13,7 +13,7 @@ const ProjectNotFound = props => (
 		<Header />
 		<Grid>
 			<Row>
-				<Col>
+				<Col md={12}>
 					{/*
 					<h1>
 						This project was not found.
