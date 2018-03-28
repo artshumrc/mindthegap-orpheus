@@ -1,8 +1,10 @@
 import React from 'react';
 
+/*
 import {
 	Sigma, EdgeShapes, NodeShapes, LoadJSON, ForceAtlas2, RelativeSize, RandomizeNodePositions
 } from 'react-sigma';
+*/
 
 
 import './ProjectVisualization.css';
@@ -11,6 +13,7 @@ const ProjectVisualization = ({ handleToggleInfoModal }) => (
 	<div
 		className="projectVisualization"
 	>
+		{/*
 		<Sigma
 			renderer="canvas"
 			style={{
@@ -29,6 +32,7 @@ const ProjectVisualization = ({ handleToggleInfoModal }) => (
 				</RandomizeNodePositions>
 			</LoadJSON>
 		</Sigma>
+		*/}
 		<div
 			className="clickScreenForDemo"
 			onClick={handleToggleInfoModal}

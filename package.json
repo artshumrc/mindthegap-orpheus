@@ -70,7 +70,6 @@
     "react-s3-uploader": "^4.2.0",
     "react-scripts": "1.0.17",
     "react-select": "^1.0.0-rc.5",
-    "react-sigma": "^1.2.30",
     "react-sortable-hoc": "^0.6.5",
     "react-tap-event-plugin": "^2.0.1",
     "react-test-renderer": "15.6.2",
