@@ -30,7 +30,7 @@ class LeftMenu extends React.Component {
 		return (
 			<div>
 				<MenuItem
-					to="/people"
+					to="/"
 					onClick={closeLeftMenu}
 				>
 					People
@@ -54,7 +54,7 @@ class LeftMenu extends React.Component {
 				: ''}
 
 				<MenuItem
-					to="/interviews"
+					to="/"
 					onClick={closeLeftMenu}
 				>
 					Interviews
@@ -78,7 +78,7 @@ class LeftMenu extends React.Component {
 				: ''}
 
 				<MenuItem
-					to="/events"
+					to="/"
 					onClick={closeLeftMenu}
 				>
 					Events
@@ -102,7 +102,7 @@ class LeftMenu extends React.Component {
 				: ''}
 
 				<MenuItem
-					to="/items"
+					to="/"
 					onClick={closeLeftMenu}
 				>
 					Items
