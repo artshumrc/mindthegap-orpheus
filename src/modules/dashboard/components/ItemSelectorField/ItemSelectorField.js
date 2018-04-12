@@ -41,6 +41,7 @@ const ItemSelectorField = ({ collectionName, selectedItems, toggleSelectedItem }
 					<ItemSelectorItemListContainer
 						selectedItems={selectedItems}
 						toggleSelectedItem={toggleSelectedItem}
+						collectionName={collectionName}
 					/>
 				</div>
 			</Col>
