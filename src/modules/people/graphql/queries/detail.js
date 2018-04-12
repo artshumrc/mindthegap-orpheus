@@ -15,6 +15,10 @@ const query = gql`
 				bio
 				projectId
 
+				events
+				interviews
+				items
+
 				metadata {
 					type
 					label

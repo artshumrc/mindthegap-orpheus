@@ -1,5 +1,8 @@
 import { gql, graphql } from 'react-apollo';
 
+// quick hack for getting this working not using PersonInputType
+// TODO: use PersonInputType
+
 const personUpdate = gql`
 	mutation personUpdate($person: PersonInputType!, $files: [FileInputType]) {
 	personUpdate(person: $person, files: $files) {

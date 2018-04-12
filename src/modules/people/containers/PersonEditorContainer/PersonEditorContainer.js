@@ -27,18 +27,48 @@ class PersonEditorContainer extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (
-			(
-				!this.state.files
-			|| !this.state.files.length
-			)
-			&& nextProps.personQuery
+				nextProps.personQuery
 			&& nextProps.personQuery.project
 			&& nextProps.personQuery.project.person
-			&& nextProps.personQuery.project.person.files
 		) {
-			this.setState({
-				files: nextProps.personQuery.project.person.files
-			});
+			if (
+				(
+					!this.state.files
+				|| !this.state.files.length
+				)
+				&& nextProps.personQuery.project.person.files
+			) {
+				this.setState({
+					files: nextProps.personQuery.project.person.files
+				});
+			}
+
+			if (
+					!this.state.selectedEvents.length
+				&& nextProps.personQuery.project.person.events
+			) {
+				this.setState({
+					selectedEvents: nextProps.personQuery.project.person.events,
+				});
+			}
+
+			if (
+					!this.state.selectedInterviews.length
+				&& nextProps.personQuery.project.person.interviews
+			) {
+				this.setState({
+					selectedInterviews: nextProps.personQuery.project.person.interviews,
+				});
+			}
+
+			if (
+					!this.state.selectedItems.length
+				&& nextProps.personQuery.project.person.items
+			) {
+				this.setState({
+					selectedItems: nextProps.personQuery.project.person.items,
+				});
+			}
 		}
 	}
 
@@ -97,6 +127,21 @@ class PersonEditorContainer extends React.Component {
 			delete file.__typename;
 			files.push(file);
 		});
+		values.events = [];
+		values.interviews = [];
+		values.items = [];
+
+		// associated joined content
+		this.state.selectedInterviews.forEach(interview => {
+			values.interviews.push(interview._id);
+		});
+		this.state.selectedEvents.forEach(event => {
+			values.events.push(event._id);
+		});
+		this.state.selectedItems.forEach(item => {
+			values.items.push(item._id);
+		});
+
 
 		console.log('######')
 		console.log('######')
