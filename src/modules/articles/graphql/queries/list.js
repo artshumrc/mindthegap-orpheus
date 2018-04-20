@@ -16,6 +16,7 @@ const query = gql`
 			articlesCount
 			files {
 				_id
+				type
 				name
 			}
 		}

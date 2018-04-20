@@ -16,6 +16,7 @@ const query = gql`
 				bio
 				files {
 					_id
+					type
 					name
 				}
 			}
@@ -24,6 +25,7 @@ const query = gql`
 
 			files {
 				_id
+				type
 				name
 			}
 		}

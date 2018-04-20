@@ -17,6 +17,7 @@ const query = gql`
 			}
 			files {
 				_id
+				type
 				name
 			}
 		}

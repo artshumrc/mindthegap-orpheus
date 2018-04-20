@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import _s from 'underscore.string';
+import ReactPlayer from 'react-player'
 
 import Tags from '../../../tags/components/Tags';
 
@@ -11,7 +12,9 @@ import './InterviewListItem.css';
 const InterviewListItem = (props) => {
 	const itemUrl = `/interviews/${props._id}/${props.slug}`;
 
+	let viewer = <div />;
 	let files = [];
+	let file = null;
 	let imageUrl = null;
 
 	if (props.files && props.files.length) {
@@ -19,16 +22,35 @@ const InterviewListItem = (props) => {
 	}
 
 	if (files.length) {
-		imageUrl = `//iiif.orphe.us/${files[0].name}/full/300,/0/default.jpg`;
-	}
+		file = files[0];
 
-	return (
-		<div className="interviewListItem">
-			{imageUrl ?
+		const fileType = file.type || '';
+		const isImage = fileType.slice(0, fileType.indexOf('/')) === 'image';
+
+		if (isImage) {
+			imageUrl = `//iiif.orphe.us/${file.name}/full/300,/0/default.jpg`;
+			viewer = (
 				<Link to={itemUrl}>
 					<img src={imageUrl} alt={props.title} />
 				</Link>
-			: ''}
+			);
+		} else {
+			viewer = (
+				<ReactPlayer
+					url={`https://s3.amazonaws.com/iiif-orpheus/${file.name}`}
+					width="300"
+					height="200"
+					style={{
+						background: '#424242',
+					}}
+	      />
+			);
+		}
+	}
+
+	return (
+		<div className="itemListItem">
+			{viewer}
 			<Tags tags={props.tags} />
 			<Link to={itemUrl}>
 				<h3>{props.title}</h3>

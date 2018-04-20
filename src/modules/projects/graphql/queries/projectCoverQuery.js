@@ -12,6 +12,7 @@ const query = gql`
 			description
 			files {
 				_id
+				type
 				name
 			}
 		}

@@ -14,14 +14,16 @@ const query = gql`
 				description
 				files {
 					_id
+					type
 					name
 				}
 			}
 
 			eventsCount
-			
+
 			files {
 				_id
+				type
 				name
 			}
 		}

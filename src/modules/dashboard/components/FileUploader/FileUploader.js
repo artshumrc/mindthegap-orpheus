@@ -27,7 +27,6 @@ export default class FileUploader extends React.Component {
 			<div className="fileUploader">
 				<Dropzone
 					className="fileDropzone"
-					accept="image/*, application/pdf, .mp4"
 					onDrop={this.handleDrop}
 				>
 					<div className="fileUploaderLabel">

@@ -35,6 +35,7 @@ const query = gql`
 				description
 				files {
 					_id
+					type
 					name
 				}
 			}
@@ -52,6 +53,7 @@ const query = gql`
 
 			files {
 				_id
+				type
 				name
 			}
 		}
