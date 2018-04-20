@@ -38,7 +38,7 @@ class ItemImageViewer extends React.Component {
 		return (
 			<div className="itemImageViewer">
 				<PrimaryImage
-					image={activeImage}
+					file={activeImage}
 					itemMiradorLink={itemMiradorLink}
 				/>
 				<ThumbnailImages

@@ -4,7 +4,6 @@ import ItemImageViewer from '../ItemImageViewer';
 import ItemTitle from '../ItemTitle';
 import ItemDescription from '../ItemDescription';
 import ItemMetaFields from '../ItemMetaFields';
-import ItemCollection from '../ItemCollection';
 import Discussion from '../../../comments/components/Discussion';
 
 import './ItemDetail.css';
@@ -50,8 +49,6 @@ const ItemDetail = ({
 					comments={comments}
 				/>
 			</div>
-
-			<ItemCollection />
 		</div>
 	);
 }
