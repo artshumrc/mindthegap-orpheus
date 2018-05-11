@@ -11,15 +11,19 @@ import itemsQuery from '../../../items/graphql/queries/list';
 class ItemSelectorItemListContainer extends React.Component {
 	render() {
 		const { selectedItems } = this.props;
+		const _selectedItems = selectedItems.slice();
 		let items = [];
 
 		if (
 			this.props.itemListQuery
 			&& this.props.itemListQuery.project
+			&& this.props.itemListQuery.project.items
 			&& this.props.eventListQuery
 			&& this.props.eventListQuery.project
+			&& this.props.eventListQuery.project.events
 			&& this.props.interviewListQuery
 			&& this.props.interviewListQuery.project
+			&& this.props.interviewListQuery.project.interviews
 		) {
 			switch (this.props.collectionName) {
 			case 'items':
@@ -38,13 +42,34 @@ class ItemSelectorItemListContainer extends React.Component {
 				items = this.props.itemListQuery.project.items.slice();
 				break;
 			}
+
+			// add join values from the database for item selector fields on forms with
+			// initial values
+			const projectItems = this.props.itemListQuery.project.items;
+			const interviews = this.props.interviewListQuery.project.interviews;
+			const events = this.props.eventListQuery.project.events;
+			const all = [...projectItems, ...interviews, ...events];
+			for (let i = 0; i < _selectedItems.length; i += 1) {
+				let selectedItem = _selectedItems[i];
+				if (selectedItem && typeof selectedItem === 'string') {
+					all.forEach(item => {
+						if (item._id === selectedItem) {
+							_selectedItems[i] = item;
+						}
+					})
+				}
+			}
 		}
 
 
 		// don't show the items that are common between lists
-		selectedItems.forEach(selectedItem => {
+		_selectedItems.forEach(selectedItem => {
 			items.forEach(item => {
-				if (item._id === selectedItem._id) {
+				if (
+						item
+					&& selectedItem
+					&& item._id === selectedItem._id
+				) {
 					items.splice(
 						items.findIndex( _i => _i._id === item._id),
 						1
@@ -57,7 +82,7 @@ class ItemSelectorItemListContainer extends React.Component {
 		return (
 			<ItemSelectorItemList
 				items={items}
-				selectedItems={selectedItems}
+				selectedItems={_selectedItems}
 				toggleSelectedItem={this.props.toggleSelectedItem}
 			/>
 		);

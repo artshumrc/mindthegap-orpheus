@@ -133,23 +133,35 @@ class PersonEditorContainer extends React.Component {
 
 		// associated joined content
 		this.state.selectedInterviews.forEach(interview => {
-			values.interviews.push(interview._id);
+			// eliminate null values from being added
+			if (interview) {
+				if (typeof interview === 'string') {
+					values.interviews.push(interview);
+				} else {
+					values.interviews.push(interview._id);
+				}
+			}
 		});
 		this.state.selectedEvents.forEach(event => {
-			values.events.push(event._id);
+			// eliminate null values from being added
+			if (event) {
+				if (typeof event === 'string') {
+					values.events.push(event);
+				} else {
+					values.events.push(event._id);
+				}
+			}
 		});
 		this.state.selectedItems.forEach(item => {
-			values.items.push(item._id);
+			// eliminate null values from being added
+			if (item) {
+				if (typeof item === 'string') {
+					values.items.push(item);
+				} else {
+					values.items.push(item._id);
+				}
+			}
 		});
-
-
-		console.log('######')
-		console.log('######')
-		console.log('######')
-		console.log(values);
-		console.log('######')
-		console.log('######')
-		console.log('######')
 
 		// create or update
 		if ('_id' in values) {
@@ -242,7 +254,7 @@ class PersonEditorContainer extends React.Component {
 	toggleSelectedItem(item) {
 		const selectedItems = this.state.selectedItems.slice();
 
-		if (selectedItems.some(selectedItem => selectedItem._id === item._id)) {
+		if (selectedItems.some(selectedItem => selectedItem && selectedItem._id === item._id)) {
 			selectedItems.splice(
 				selectedItems.findIndex(selectedItem => selectedItem._id === item._id),
 				1
@@ -259,7 +271,7 @@ class PersonEditorContainer extends React.Component {
 	toggleSelectedEvent(event) {
 		const selectedEvents = this.state.selectedEvents.slice();
 
-		if (selectedEvents.some(selectedEvent => selectedEvent._id === event._id)) {
+		if (selectedEvents.some(selectedEvent => selectedEvent && selectedEvent._id === event._id)) {
 			selectedEvents.splice(
 				selectedEvents.findIndex(selectedEvent => selectedEvent._id === event._id),
 				1
@@ -276,7 +288,11 @@ class PersonEditorContainer extends React.Component {
 	toggleSelectedInterview(interview) {
 		const selectedInterviews = this.state.selectedInterviews.slice();
 
-		if (selectedInterviews.some(selectedInterview => selectedInterview._id === interview._id)) {
+		if (
+			selectedInterviews.some(selectedInterview =>
+				selectedInterview && selectedInterview._id === interview._id
+			)
+		) {
 			selectedInterviews.splice(
 				selectedInterviews.findIndex(selectedInterview => selectedInterview._id === interview._id),
 				1
