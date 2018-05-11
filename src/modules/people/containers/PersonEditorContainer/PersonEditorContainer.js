@@ -254,9 +254,27 @@ class PersonEditorContainer extends React.Component {
 	toggleSelectedItem(item) {
 		const selectedItems = this.state.selectedItems.slice();
 
-		if (selectedItems.some(selectedItem => selectedItem && selectedItem._id === item._id)) {
+		if (
+			selectedItems.some(selectedItem => (
+					selectedItem
+				&& (
+					typeof selectedItem === 'string'
+					&& selectedItem === item._id
+				)
+				|| (
+						typeof selectedItem === 'object'
+					&& selectedItem._id === item._id
+				)
+			)
+		)) {
 			selectedItems.splice(
-				selectedItems.findIndex(selectedItem => selectedItem._id === item._id),
+				selectedItems.findIndex(selectedItem => {
+					if (typeof selectedItem === 'string') {
+						return selectedItem === item._id
+					} else {
+						return selectedItem._id === item._id
+					}
+				}),
 				1
 			);
 		} else {
@@ -271,9 +289,27 @@ class PersonEditorContainer extends React.Component {
 	toggleSelectedEvent(event) {
 		const selectedEvents = this.state.selectedEvents.slice();
 
-		if (selectedEvents.some(selectedEvent => selectedEvent && selectedEvent._id === event._id)) {
+		if (
+			selectedEvents.some(selectedEvent => (
+					selectedEvent
+				&& (
+					typeof selectedEvent === 'string'
+					&& selectedEvent === event._id
+				)
+				|| (
+						typeof selectedEvent === 'object'
+					&& selectedEvent._id === event._id
+				)
+			)
+		)) {
 			selectedEvents.splice(
-				selectedEvents.findIndex(selectedEvent => selectedEvent._id === event._id),
+				selectedEvents.findIndex(selectedEvent => {
+					if (typeof selectedEvent === 'string') {
+						return selectedEvent === event._id
+					} else {
+						return selectedEvent._id === event._id
+					}
+				}),
 				1
 			);
 		} else {
@@ -289,12 +325,26 @@ class PersonEditorContainer extends React.Component {
 		const selectedInterviews = this.state.selectedInterviews.slice();
 
 		if (
-			selectedInterviews.some(selectedInterview =>
-				selectedInterview && selectedInterview._id === interview._id
+			selectedInterviews.some(selectedInterview => (
+					selectedInterview
+				&& (
+					typeof selectedInterview === 'string'
+					&& selectedInterview === interview._id
+				)
+				|| (
+						typeof selectedInterview === 'object'
+					&& selectedInterview._id === interview._id
+				)
 			)
-		) {
+		)) {
 			selectedInterviews.splice(
-				selectedInterviews.findIndex(selectedInterview => selectedInterview._id === interview._id),
+				selectedInterviews.findIndex(selectedInterview => {
+					if (typeof selectedInterview === 'string') {
+						return selectedInterview === interview._id
+					} else {
+						return selectedInterview._id === interview._id
+					}
+				}),
 				1
 			);
 		} else {
