@@ -1,152 +1,70 @@
-# orphe.us
+# Mind the Gap: Diasporic Archives in Italy and the US  
+
 
 The project consists of 2 applications:
-1.	Client app (React / Redux) based on [`create-react-app`](https://github.com/facebookincubator/create-react-app)
-2.	Server (Node.js / Express)
+1.	React / Redux frontend application based on [`create-react-app`](https://github.com/facebookincubator/create-react-app) in this repository
+2.	GraphQL API (Node.js / Express) here: http://gitlab.archimedes.digital/archimedes/mindthegap-orpheus-api/tree/master
+
+## Requirements
+
+In order to develop with this application, you will need the following software installed on your development environment:
+
+* Node 8.x
+
 
 ## Starting the project
 
-To start the project you need to follow these steps:
-1.	Clone repository
+### Start the React frontend
 
-2.	Change catalog:
+To start the project you need to follow these steps:
+
+1.	Clone the this repository (this repository)
+
+2.	Change directory to repository:
 
 	```sh
-	cd orpheus
+	$ cd mindthegap-orpheus
 	```
 
-3.	Run npm install:
+3.	Install packages via Yarn:
 
 	```sh
-	yarn
+	$ yarn
 	```
 
 4.	Setup environment variables:
 
-	Environment variables for the *server*:
-	```sh
-	// .env
-	SESSION_SECRET=secret
+	Configure these environment variables as necessary for your development environment so that the frontned knows which URL to access the GraphQL API backend at and which other routes to use for the authentication information.
 
-	DB_HOST=localhost
-	DB_PORT=27017
-	DB_NAME=orpheus
-
-	CLIENT_SERVER=http://localhost:3000
-
-	JWT_SECRET=secret
-
-	WS_SERVER_PORT=3002
-	WS_SERVER_HOST=localhost
-	WS_SERVER_URI=subscriptions
-
-	DEFAULT_LANGUAGE=en
-
-	AWS_BUCKET=bucketName
-	AWS_ACCESS_KEY_ID=x
-	AWS_SECRET_ACCESS_KEY=x
-	AWS_BUCKET=iiif-orpheus
-	AWS_REGION=us-east-1
-	```
-
-	Environment variables for the *client* (*!IMPORTANT*: this should be set in the `client` repo):
+	Environment variables for the frontend:
 	```sh
 	// client/.env
-	REACT_APP_GRAPHQL_SERVER=http://api.orpheus.local:3001
+	REACT_APP_GRAPHQL_SERVER=http://api.mindthegap.orpheus.local:3001
 	REACT_APP_GRAPHQL_URI=graphql
-	REACT_APP_SERVER=http://orpheus.local:3000
+	REACT_APP_SERVER=http://api.mindthegap.orpheus.local:3001
 	REACT_APP_LOGIN_URI=auth/login
-	REACT_APP_LOGIN_JWT_URI=auth/login-jwt
 	REACT_APP_LOGOUT_URI=auth/logout
 	REACT_APP_REGISTER_URI=auth/register
-	REACT_APP_REGISTER_JWT_URI=auth/register
-	REACT_APP_WS_SERVER=http://localhost:3002
+	REACT_APP_VERIFY_TOKEN_URI=auth/verify-token
+	REACT_APP_COOKIE_DOMAIN=mindthegap.orpheus.local
+	REACT_APP_BUCKET_URL=https://s3.amazonaws.com/iiif-orpheus
 
-	REACT_APP_WS_SERVER=ws://localhost:3002
-	REACT_APP_WS_SERVER_URI=subscriptions
+	REACT_APP_FACBOOK_CLIENT_ID=client_id
+	REACT_APP_GOOGLE_CLIENT_ID=client_id
+	REACT_APP_TWITTER_CLIENT_ID=client_id
 
-	AWS_ACCESS_KEY_ID=
-    AWS_SECRET_ACCESS=
-    AWS_BUCKET=iiif-orpheus
-    AWS_REGION=us-east-1
-    REACT_APP_BUCKET_URL=https://iiif-orpheus.s3.amazonaws.com
+	REACT_APP_GOOGLE_MAPS_API_KEY=mapkey
 	```
 
-5.	Generate mock data using the seed script:
+6.	Start the application
 
-	If your database is not clear use this script to remove all elements:
+	After configuring the environment variables and installing packages, you can start the application with
 	```sh
-	yarn db-clear
-	```
-
-	To generate the new documents, run:
-	```sh
-	yarn db-seed
-	```
-
-	To run both scripts, one after the other, use:
-	```sh
-	yarn db-setup
+	$ yarn start
 	```
 
 
-6.	Use one of the following npm scripts to start the application:
-
-	| shell script | Description |
-	| ------ | ------ |
-	| `yarn start` | Starts the server and the client application |
-	| `yarn server` | Starts the server application |
-	| `yarn client` | Starts the client application|
-
-## Authentication
-
-### Auth on Server
-
-JSON Web Tokens (JWT):
-
-1. Login route: **/auth/login**.
-
-	Pass `username` and `password` in the req body.
-
-	If username and password are correct, server will respond with a `token`.
-
-
-2. Register route: **/auth/register**.
-
-	Pass `username` and `password` in the req body.
-
-	If username and password are correct, server will respond with a `token`.
-
-3. When using the `fetch` method in the client app, remember to set `authorization' header to the token value`. Otherwise the request will not be authenticated.
-
-4. `apollo-client` has a middleware attached to the `networkInterface`, which reads the token value from the a cookie set with `react-cookie`.
-
-### Auth on Client
-
-#### Authentication methods (`client/src/lib/auth.js`):
-
-**1. login**
-
-	Runs fetch method to the login route and on success sets `token` value in a cookie.
-
-**2. logout**
-
-	Deletes `token` cookie.
-
-**3. register**
-
-	Runs fetch method to the register route and on success sets `token` value in a cookie.
-
-#### Auth redux:
-
-There is a `AuthModalContainer` component placed in the `Root` component, which handles all user authentication operations.
-
-**Q: Where is user data stored in Redx Store?**
-
-A: `userId` and `username` are stored in `store.auth`.
-
-
-## Environment variables
+## More on environment variables
 
 Priority of environment variables in `.env` files (client and server):
 
