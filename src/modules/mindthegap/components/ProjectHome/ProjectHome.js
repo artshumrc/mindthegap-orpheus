@@ -36,7 +36,7 @@ class ProjectHome extends React.Component {
 			<div id="home" className="projectHome">
 				{/* Header */}
 				<ProjectHeaderContainer />
-					<MTGVis handleToggleInfoModal={this.handleToggleInfoModal}/>
+				<MTGVis handleToggleInfoModal={this.handleToggleInfoModal}/>
 
 				<Modal
 					show={this.state.showInfoModal}
