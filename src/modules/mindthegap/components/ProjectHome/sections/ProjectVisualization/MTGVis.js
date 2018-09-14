@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import createRef from 'create-react-ref/lib/createRef';
-import './mtgvis.css'
 import * as d3 from "d3v4"
 import * as d3symbolextra from 'd3-symbol-extra'
+
+import './mtgvis.css'
 
 class MTGVis extends React.Component {
 	constructor(props){
@@ -319,9 +320,14 @@ class MTGVis extends React.Component {
       **/
       //return <svg ref={node => this.node = node}></svg>
       //return <svg ref={this.myRef} width={this.state.width} height={this.state.height}></svg>
-		return <div id="graphvis">
-			<svg ref={this.myRef} ></svg>
-		</div>
+		return (
+			<div id="graphvis" style={{
+				height: '100vh',
+				width: '100vw',
+			}}>
+				<svg ref={this.myRef} ></svg>
+			</div>
+		);
 	}
 }
 export default MTGVis
