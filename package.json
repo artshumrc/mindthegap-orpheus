@@ -135,6 +135,7 @@
     "start": "npm-run-all -p watch:css start:js",
     "test": "react-scripts test --env=jsdom",
     "test:ci": "CI=true react-scripts test --env=jsdom",
+    "up": "yarn build && ./deploy.sh",
     "jsdoc": "jsdoc src -r -c .jsdoc.json -d docs"
   },
   "pre-commit": "lint:staged",
