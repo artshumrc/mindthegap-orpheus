@@ -63,7 +63,7 @@ class MTGVis extends React.Component {
 
     //Can't pull on MTG live API because of HTTP/HTTPS mismatch error
     //Eventually change to use Graphql query
-		d3.json("http://localhost:3001/v1", function(error, graph){
+		d3.json("https://mindthegap-api.orphe.us/v1", function(error, graph){
 
 			if(error) throw error;
 
