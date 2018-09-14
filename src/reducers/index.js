@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
+
 import bricks from './bricks';
 import leftMenu from './leftMenu';
 import authReducers from '../modules/auth/reducers';
 import client from '../middleware/apolloClient';
 
+import mindTheGapReducers from '../modules/mindthegap/reducers';
 
 import * as ActionTypes from '../actions';
 
@@ -30,6 +32,7 @@ const rootReducer = combineReducers({
 	bricks,
 	leftMenu,
 	auth: authReducers,
+	mindTheGap: mindTheGapReducers,
 });
 
 export default rootReducer;
