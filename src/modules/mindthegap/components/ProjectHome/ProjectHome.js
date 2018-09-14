@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // components
 import ProjectHeaderContainer from '../../containers/ProjectHeaderContainer';
 import ProjectVisualization from './sections/ProjectVisualization';
-import InfoModalContent from '../InfoModalContent';
+import InfoModalContentContainer from '../../containers/InfoModalContentContainer';
 import Modal from '../../../../components/common/modal/Modal';
 
 // redux
@@ -27,7 +27,9 @@ const ProjectHome = props => {
 				closeModal={props.handleSetModal.bind(this, { modalOpen: false, nodeId: null })}
 				innerFullWidth
 			>
-				<InfoModalContent />
+				<InfoModalContentContainer
+					nodeId={props.mindTheGap.nodeId}
+				/>
 			</Modal>
 		</div>
 	);
