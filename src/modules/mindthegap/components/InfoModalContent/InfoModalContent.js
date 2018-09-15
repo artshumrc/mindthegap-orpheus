@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
+import pluralize from 'pluralize';
 
 // components
 import ItemImageViewer from '../../../items/components/ItemImageViewer';
@@ -18,7 +19,7 @@ const InfoModalContent = props => {
 			<div className="infoModalMedia">
 				{props.files ?
 					<ItemImageViewer
-						itemMiradorLink={ props.manifest ? `/${props.collectionType}/${props._id}/${props.slug}/mirador` : null}
+						itemMiradorLink={ props.manifest ? `/${pluralize(props.collectionType)}/${props._id}/${props.slug}/mirador` : null}
 						files={props.files}
 					/>
 				: ''}

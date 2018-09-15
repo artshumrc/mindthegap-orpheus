@@ -44,6 +44,7 @@
     "moment": "^2.19.1",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.0.2",
+    "pluralize": "^7.0.0",
     "pre-commit": "^1.2.2",
     "prop-types": "^15.5.10",
     "raf": "^3.3.2",
