@@ -359,7 +359,7 @@ class ProjectVisualization extends React.Component {
 				}
 			});
 
-			d3.forceSimulation(nodeData)
+			simulation = d3.forceSimulation(nodeData)
 				// pull nodes together based on the links between them
 				.force("link", d3.forceLink(edgeData).strength(0.025))
 				// push nodes apart to space them out
