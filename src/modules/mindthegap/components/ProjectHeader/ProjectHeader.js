@@ -60,6 +60,7 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 							People
 						</Link>
 					</li>
+					{/*
 					<li>
 						<Link to="/interviews" >
 							Interviews
@@ -75,6 +76,7 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 							Items
 						</Link>
 					</li>
+					*/}
 					<li>
 						{ userId ?
 							<Link
@@ -96,6 +98,7 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 							</Link>
 						: '' }
 					</li>
+					{/*
 					<li>
 						<Link
 							className="searchLink"
@@ -104,6 +107,7 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 							<i className="mdi mdi-magnify searchIcon" />
 						</Link>
 					</li>
+					*/}
 				</ul>
 			</Headroom>
 		</div>

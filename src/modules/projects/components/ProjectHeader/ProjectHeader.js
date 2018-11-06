@@ -108,6 +108,7 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 							</Link>
 						: '' }
 					</li>
+					{/*
 					<li>
 						<Link
 							className="searchLink"
@@ -116,6 +117,7 @@ const ProjectHeader = ({ project, toggleAuthModal, dispatchToggleLeftMenu, leftM
 							<i className="mdi mdi-magnify searchIcon" />
 						</Link>
 					</li>
+					*/}
 				</ul>
 			</Headroom>
 		</div>
