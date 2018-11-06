@@ -40,6 +40,7 @@ const PersonItemMetaFieldItemsContainer = props => {
 		<ItemMetaFieldItem
 			label={props.label}
 			value={items}
+			type={props.type}
 		/>
 	);
 }

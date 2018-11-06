@@ -6,7 +6,7 @@ import ItemList from '../ItemList';
 import './ItemMetaFieldItem.css';
 
 
-const ItemMetaFieldItem = ({ label, value, noResultsMessage })=> {
+const ItemMetaFieldItem = ({ label, value, type, noResultsMessage })=> {
 	let items = [];
 
 	if (value) {
@@ -26,6 +26,7 @@ const ItemMetaFieldItem = ({ label, value, noResultsMessage })=> {
 			</label>
 			<ItemList
 				items={items}
+				type={type}
 				horizontal
   		/>
 		</div>

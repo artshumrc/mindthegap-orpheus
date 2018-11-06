@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import _s from 'underscore.string';
+import pluralize from 'pluralize';
 import ReactPlayer from 'react-player'
 
 import Tags from '../../../tags/components/Tags';
@@ -10,7 +11,7 @@ import './ItemListItem.css';
 
 
 const ItemListItem = (props) => {
-	const itemUrl = `/items/${props._id}/${props.slug}`;
+	const itemUrl = `/${pluralize(props.type)}/${props._id}/${props.slug}`;
 
 	let viewer = <div />;
 	let files = [];
@@ -62,10 +63,15 @@ const ItemListItem = (props) => {
 	);
 };
 
+ItemListItem.defaultProps = {
+	type: 'item',
+};
+
 ItemListItem.propTypes = {
 	imageUrl: PropTypes.string,
 	tags: PropTypes.array,
 	title: PropTypes.string,
+	type: PropTypes.string,
 	slug: PropTypes.string,
 	description: PropTypes.string,
 };
