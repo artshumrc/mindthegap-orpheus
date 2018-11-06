@@ -15,10 +15,6 @@
 
 .itemList.itemListHorizontal {
 	width: auto;
-	max-height: 720px;
-	overflow-y: hidden;
-	overflow-x: scroll;
-
 	.itemListItem {
 		display: inline-block;
 		vertical-align: top;

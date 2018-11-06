@@ -6,12 +6,17 @@ import ItemList from '../ItemList';
 import './ItemMetaFieldItem.css';
 
 
-const ItemMetaFieldItem = ({ label, value })=> {
-
+const ItemMetaFieldItem = ({ label, value, type, noResultsMessage })=> {
 	let items = [];
 
 	if (value) {
-		items = JSON.parse(value);
+		if (typeof value === 'string') {
+			items = JSON.parse(value);
+		} else if (Array.isArray(value)) {
+			items = value;
+		} else {
+			console.error('Unknown data type passed to ItemMetaFieldItem');
+		}
 	}
 
 	return (
@@ -21,6 +26,7 @@ const ItemMetaFieldItem = ({ label, value })=> {
 			</label>
 			<ItemList
 				items={items}
+				type={type}
 				horizontal
   		/>
 		</div>

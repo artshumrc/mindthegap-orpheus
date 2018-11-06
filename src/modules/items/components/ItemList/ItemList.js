@@ -7,7 +7,7 @@ import ItemListItem from '../ItemListItem';
 import './ItemList.css';
 
 
-const ItemList = ({ items, horizontal }) => {
+const ItemList = ({ items, type, horizontal }) => {
 	const classes = [];
 
 
@@ -20,6 +20,7 @@ const ItemList = ({ items, horizontal }) => {
 			{items.map((listItem, i) => (
 				<ItemListItem
 					key={`${listItem.slug}-${i}`}
+					type={type}
 					{...listItem}
 				/>
 			))}

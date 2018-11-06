@@ -1,7 +1,7 @@
 {
-  "name": "orpheus",
-  "version": "0.0.1",
-  "description": "React application for orphe.us digital collections",
+  "name": "mindthegap",
+  "version": "1.0.0",
+  "description": "React application for Mind the Gap Digital Collections",
   "main": "src/index.js",
   "dependencies": {
     "Dante2": "^0.4.3",

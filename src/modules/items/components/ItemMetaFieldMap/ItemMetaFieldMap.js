@@ -10,12 +10,6 @@ const ItemMetaFieldMap = ({ google, value, label }) => {
 		position = parsedValue.position;
 	}
 
-	console.log('#####')
-	console.log('#####')
-	console.log(value);
-	console.log('#####')
-	console.log('#####')
-
 	if (!position) {
 		return null;
 	}
