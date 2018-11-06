@@ -9,12 +9,14 @@ import ItemMetaFields from '../../../items/components/ItemMetaFields';
 
 import Discussion from '../../../comments/components/Discussion';
 
+import PersonItemMetaFieldItemsContainer from '../../containers/PersonItemMetaFieldItemsContainer';
+
 
 import './PersonDetail.css';
 
 const PersonDetail = ({
 	_id, name, slug, bio, tags, metadata, files, commentsCount, comments,
-	userIsAdmin, manifest, handleRemove
+	userIsAdmin, manifest, handleRemove, events, interviews, items,
 })=> {
 
 	if (!_id) {
@@ -45,9 +47,29 @@ const PersonDetail = ({
 				<Tags
 					tags={tags}
 				/>
+
 				<ItemMetaFields
 					metafields={metadata}
 				/>
+
+				<PersonItemMetaFieldItemsContainer
+					label="Interviews"
+					ids={interviews}
+					type="interview"
+				/>
+
+				<PersonItemMetaFieldItemsContainer
+					label="Events"
+					ids={events}
+					type="event"
+				/>
+
+				<PersonItemMetaFieldItemsContainer
+					label="Items"
+					ids={items}
+					type="item"
+				/>
+
 				<Discussion
 					commentsCount={commentsCount}
 					comments={comments}

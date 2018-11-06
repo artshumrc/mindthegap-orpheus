@@ -95,14 +95,6 @@ class EventEditorContainer extends React.Component {
 			files.push(file);
 		});
 
-		console.log('######')
-		console.log('######')
-		console.log('######')
-		console.log(values);
-		console.log('######')
-		console.log('######')
-		console.log('######')
-
 		// create or update
 		if ('_id' in values) {
 			eventUpdate(values, files)

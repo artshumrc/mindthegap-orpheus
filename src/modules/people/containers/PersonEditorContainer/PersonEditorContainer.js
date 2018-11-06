@@ -328,21 +328,26 @@ class PersonEditorContainer extends React.Component {
 			selectedInterviews.some(selectedInterview => (
 					selectedInterview
 				&& (
-					typeof selectedInterview === 'string'
-					&& selectedInterview === interview._id
-				)
-				|| (
-						typeof selectedInterview === 'object'
-					&& selectedInterview._id === interview._id
+					(
+						typeof selectedInterview === 'string'
+						&& selectedInterview === interview._id
+					)
+					||
+					(
+							typeof selectedInterview === 'object'
+						&& selectedInterview._id === interview._id
+					)
 				)
 			)
 		)) {
 			selectedInterviews.splice(
 				selectedInterviews.findIndex(selectedInterview => {
-					if (typeof selectedInterview === 'string') {
-						return selectedInterview === interview._id
-					} else {
-						return selectedInterview._id === interview._id
+					if (selectedInterview) {
+						if (typeof selectedInterview === 'string') {
+							return selectedInterview === interview._id
+						} else {
+							return selectedInterview._id === interview._id
+						}
 					}
 				}),
 				1

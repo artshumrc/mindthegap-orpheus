@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import './ItemDescription.css';
 
 const ItemDescription = ({ description }) => (
-	<p className="itemDescription">
-		{description}
-	</p>
+	<div
+		className="itemDescription"
+		dangerouslySetInnerHTML={{ __html: description }}
+	/>
 );
 
 ItemDescription.propTypes = {
