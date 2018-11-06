@@ -40,7 +40,7 @@ const InfoModalContent = props => {
 			</div>
 			<div className="infoModalBody">
 				<ItemDescription
-					description={props.bio}
+					description={props.bio || props.description}
 				/>
 
 				<Tags
@@ -51,23 +51,29 @@ const InfoModalContent = props => {
 					metafields={props.metadata}
 				/>
 
-				<PersonItemMetaFieldItemsContainer
-					label="Interviews"
-					ids={props.interviews}
-					type="interview"
-				/>
+				{props.interviews ?
+					<PersonItemMetaFieldItemsContainer
+						label="Interviews"
+						ids={props.interviews}
+						type="interview"
+					/>
+				: ''}
 
-				<PersonItemMetaFieldItemsContainer
-					label="Events"
-					ids={props.events}
-					type="event"
-				/>
+				{props.events ?
+					<PersonItemMetaFieldItemsContainer
+						label="Events"
+						ids={props.events}
+						type="event"
+					/>
+				: ''}
 
-				<PersonItemMetaFieldItemsContainer
-					label="Items"
-					ids={props.items}
-					type="item"
-			/>
+				{props.items ?
+					<PersonItemMetaFieldItemsContainer
+						label="Items"
+						ids={props.items}
+						type="item"
+					/>
+				: ''}
 
 			</div>
 		</div>
