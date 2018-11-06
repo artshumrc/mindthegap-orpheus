@@ -257,14 +257,14 @@ class PersonEditorContainer extends React.Component {
 		if (
 			selectedItems.some(selectedItem => (
 					selectedItem
-				&& (
+				&& ((
 					typeof selectedItem === 'string'
 					&& selectedItem === item._id
 				)
 				|| (
 						typeof selectedItem === 'object'
 					&& selectedItem._id === item._id
-				)
+				))
 			)
 		)) {
 			selectedItems.splice(
@@ -292,14 +292,14 @@ class PersonEditorContainer extends React.Component {
 		if (
 			selectedEvents.some(selectedEvent => (
 					selectedEvent
-				&& (
+				&& ((
 					typeof selectedEvent === 'string'
 					&& selectedEvent === event._id
 				)
 				|| (
 						typeof selectedEvent === 'object'
 					&& selectedEvent._id === event._id
-				)
+				))
 			)
 		)) {
 			selectedEvents.splice(
@@ -345,10 +345,11 @@ class PersonEditorContainer extends React.Component {
 					if (selectedInterview) {
 						if (typeof selectedInterview === 'string') {
 							return selectedInterview === interview._id
-						} else {
-							return selectedInterview._id === interview._id
 						}
+						return selectedInterview._id === interview._id
 					}
+					
+					return null;
 				}),
 				1
 			);
