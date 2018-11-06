@@ -10,6 +10,10 @@ const query = gql`
 			projectId
       collectionType
 
+			events
+			interviews
+			items
+
 			metadata {
 				type
 				label
