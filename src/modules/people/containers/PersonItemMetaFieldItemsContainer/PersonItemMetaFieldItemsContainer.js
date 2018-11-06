@@ -11,11 +11,6 @@ import personItemMetaFieldItemsQuery from '../../graphql/queries/personItemMetaF
 const PersonItemMetaFieldItemsContainer = props => {
 	let items = [];
 
-	console.log(props);
-	console.log(props);
-	console.log(props);
-	console.log(props);
-	console.log(props);
 	if (props.personItemMetaFieldItemsQuery && props.personItemMetaFieldItemsQuery.project) {
 		switch(props.type) {
 		case 'interview':

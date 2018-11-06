@@ -1,6 +1,6 @@
 {
   "name": "mindthegap",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React application for Mind the Gap Digital Collections",
   "main": "src/index.js",
   "dependencies": {

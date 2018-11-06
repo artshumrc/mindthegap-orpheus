@@ -30,6 +30,19 @@ class ProjectVisualization extends React.Component {
 	}
 
 	createMTGVis() {
+		let links;
+		let nodes;
+		let nodeData;
+		let titles;
+		let titleText;
+		let titleRects;
+		let linkData;
+		let linksIndex;
+		let simulation;
+
+		const rectWidthPad = 10;
+		const rectHeightPad = 5;
+
 		let margin = {
 			top:50,
 			bottom:50,
@@ -54,20 +67,145 @@ class ProjectVisualization extends React.Component {
 		 .attr("width", width + margin.left + margin.right)
 		 .attr("height", height + margin.top + margin.bottom);
 
-		//const node = this.node;
-		//const svg = d3.select(node).append("svg");
-		const simulation = d3.forceSimulation()
-			// pull nodes together based on the links between them
-			.force("link", d3.forceLink().id((d) => {
-				return d._id;
-			})
-			.strength(0.025))
-			// push nodes apart to space them out
-			.force("charge", d3.forceManyBody().strength(-150))
-			// add some collision detection so they don't overlap
-			.force("collide", d3.forceCollide().radius(12))
-			// and draw them around the centre of the space
-			.force("center", d3.forceCenter(width / 2, height / 2));
+		const ticked = () => {
+			links.attr("d", positionLink);
+			nodes.attr("transform", positionNode);
+			titles.attr("transform", positionTitle) // bb not created on redraw; breaks if using componentDidUpdate
+		}
+
+		const dragstarted = (d) => {
+			if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+			d.fx = d.x;
+			d.fy = d.y;
+		}
+
+		const dragged = (d) => {
+			d.fx = d3.event.x;
+			d.fy = d3.event.y;
+		}
+
+		const dragended = (d) => {
+			if (!d3.event.active) simulation.alphaTarget(0);
+			d.fx = null;
+			d.fy = null;
+		}
+
+		// links are drawn as curved paths between nodes, through the intermediate nodes
+		const positionLink = (d) => {
+			const offset = 100;
+			let source;
+			let target;
+
+			nodeData.forEach((node, i) => {
+				if (node._id === d.source) {
+					source = node;
+				}
+				if (node._id === d.target) {
+					target = node;
+				}
+			});
+
+			if (!source || !target) {
+				return null;
+			}
+
+			const midpoint_x = (source.x + target.x) / 2;
+			const midpoint_y = (source.y + target.y) / 2;
+			const dx = (target.x - source.x);
+			const dy = (target.y - source.y);
+			const normalise = Math.sqrt((dx * dx) + (dy * dy));
+			const offSetX = midpoint_x + offset*(dy/normalise);
+			const offSetY = midpoint_y - offset*(dx/normalise);
+
+			return "M" + source.x + "," + source.y + "S" + offSetX + "," + offSetY + " " + target.x + "," + target.y;
+		}
+
+		const positionNode = (d) => {
+			// keep the node within the boundaries of the svg
+			if (d.x < 0) {
+				d.x = 0
+			};
+			if (d.y < 0) {
+				d.y = 0
+			};
+			if (d.x > width) {
+				d.x = width
+			};
+			if (d.y > height) {
+				d.y = height
+			};
+			return "translate(" + d.x + "," + d.y + ")";
+		}
+
+		const positionTitle = (d) => {
+			if (d.x < 0) {
+				d.x = 0
+			};
+			if (d.y < 0) {
+				d.y = 0
+			};
+			if (d.x > width) {
+				d.x = width
+			};
+			if (d.y > height) {
+				d.y = height
+			};
+			return "translate(" + (d.x - ((d.bb.width + rectWidthPad)/ 2)) + "," + (d.y - ((d.bb.height + rectHeightPad)/ 2)) + ")";
+		}
+
+		const isConnected = (a,b) => {
+			return linksIndex[a.index + "," + b.index] || linksIndex[b.index + "," + a.index];
+		}
+
+		const mouseOver = (d) => {
+			nodes.style("fill-opacity", (o) => {
+				if (o===d){
+					return 1;
+				}
+				else return isConnected(o,d) ? 1 : 0.1;
+			});
+			nodes.style("stroke-opacity", (o) => {
+				if (o===d){
+					return 1;
+				}
+				else return isConnected(o,d) ? 1 : 0.1;
+			});
+
+			/**
+			links.style("stroke-opacity", (o) => {
+				return o.source === d || o.target === d ? 1 : 0.1;
+			});
+			*/
+
+			titleText.style("opacity", (o) => {
+				if (o===d){
+					return 1;
+				}
+				return isConnected(o,d) ? 1 : 0;
+			});
+			titleRects.style("opacity", (o) => {
+				if (o===d){
+					return 1;
+				}
+				return isConnected(o,d) ? 1 : 0;
+			});
+
+			svg.selectAll("g.title").each(function(){
+				this.childNodes.forEach((n) => {
+					if(n.getAttribute("class") === "titleText"){
+						n.parentNode.appendChild(n);
+					}
+				})
+			});
+		}
+
+		const mouseOut = () => {
+			nodes.style("stroke-opacity", 1);
+			nodes.style("fill-opacity", 1);
+			links.style("stroke-opacity", 1);
+			titleText.style("opacity", 0);
+			titleRects.style("opacity", 0);
+		}
 
 		//Eventually change to use Graphql query
 		d3.json("https://mindthegap-api.orphe.us/v1", (error, graph) => {
@@ -75,21 +213,21 @@ class ProjectVisualization extends React.Component {
 			if (error) throw error;
 
 			// bind nodes and edges
-			const nodeData = graph.nodes;
-			const linkData = graph.edges;
+			nodeData = graph.nodes;
+			linkData = graph.edges;
 
-			const links = svg.selectAll(".link")
+			links = svg.selectAll(".link")
 				.data(linkData)
 				.enter()
 				.append("path")
 				.attr("class", "link")
 				.style("fill", "none")
 				.style('stroke-width', 2);
-			const nodes = svg.selectAll(".node")
+			nodes = svg.selectAll(".node")
 				.data(nodeData)
 				.enter().append("g")
 				.attr("class", "node");
-			const titles = svg.selectAll(".title")
+			titles = svg.selectAll(".title")
 				.data(nodeData)
 				.enter().append("g")
 				.attr("class", "title");
@@ -130,10 +268,7 @@ class ProjectVisualization extends React.Component {
 					.on("drag", dragged)
 					.on("end", dragended));
 
-			const rectWidthPad = 10;
-			const rectHeightPad = 5;
-
-			const titleText = titles.append("text")
+			titleText = titles.append("text")
 			.attr("dy", 16)
 			.attr("dx", (rectWidthPad/2))
 			// .text((d) => { return d.id })
@@ -144,8 +279,6 @@ class ProjectVisualization extends React.Component {
 				} else if (d.hasOwnProperty("title")){
 					return d.title;
 				}
-
-				console.log(d);
 				return "No title or name";
 			})
 			.attr("class","titleText")
@@ -158,7 +291,7 @@ class ProjectVisualization extends React.Component {
 				d.bb = this.getBBox();
 			});
 
-			const titleRects = titles.append("rect")
+			titleRects = titles.append("rect")
 				.attr("width", (d) => {
 					return d.bb.width + rectWidthPad;
 				})
@@ -181,148 +314,62 @@ class ProjectVisualization extends React.Component {
 					.on("end", dragended)
 			);
 
-			simulation
-				.nodes(nodeData)
-				.on("tick", ticked);
-
-
-			console.log('linkData');
-			console.log('linkData');
-			console.log(linkData);
-			console.log('linkData');
-			console.log('linkData');
-			/*
-			simulation
-				.force("link")
-				.links(linkData);
-			*/
-
-			const ticked = () => {
-				links.attr("d", positionLink);
-				nodes.attr("transform", positionNode);
-				titles.attr("transform", positionTitle) // bb not created on redraw; breaks if using componentDidUpdate
-			}
-
-			const dragstarted = (d) => {
-				if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-				d.fx = d.x;
-				d.fy = d.y;
-			}
-
-			const dragged = (d) => {
-				d.fx = d3.event.x;
-				d.fy = d3.event.y;
-			}
-
-			const dragended = (d) => {
-				if (!d3.event.active) simulation.alphaTarget(0);
-				d.fx = null;
-				d.fy = null;
-			}
-
-			// links are drawn as curved paths between nodes, through the intermediate nodes
-			const positionLink = (d) => {
-				const offset = 100;
-				const midpoint_x = (d.source.x + d.target.x) / 2;
-				const midpoint_y = (d.source.y + d.target.y) / 2;
-				const dx = (d.target.x - d.source.x);
-				const dy = (d.target.y - d.source.y);
-				const normalise = Math.sqrt((dx * dx) + (dy * dy));
-				const offSetX = midpoint_x + offset*(dy/normalise);
-				const offSetY = midpoint_y - offset*(dx/normalise);
-
-				return "M" + d.source.x + "," + d.source.y + "S" + offSetX + "," + offSetY + " " + d.target.x + "," + d.target.y;
-			}
-
-			const positionNode = (d) => {
-				// keep the node within the boundaries of the svg
-				if (d.x < 0) {
-					d.x = 0
-				};
-				if (d.y < 0) {
-					d.y = 0
-				};
-				if (d.x > width) {
-					d.x = width
-				};
-				if (d.y > height) {
-					d.y = height
-				};
-				return "translate(" + d.x + "," + d.y + ")";
-			}
-
-			const positionTitle = (d) => {
-				if (d.x < 0) {
-					d.x = 0
-				};
-				if (d.y < 0) {
-					d.y = 0
-				};
-				if (d.x > width) {
-					d.x = width
-				};
-				if (d.y > height) {
-					d.y = height
-				};
-				return "translate(" + (d.x - ((d.bb.width + rectWidthPad)/ 2)) + "," + (d.y - ((d.bb.height + rectHeightPad)/ 2)) + ")";
-			}
-
-			const linksIndex = {};
+			linksIndex = {};
 			linkData.forEach((d) => {
-				linksIndex[d.source.index + "," + d.target.index] = true;
-				linksIndex[d.source.index + "," + d.source.index] = true;
-				linksIndex[d.target.index + "," + d.target.index] = true;
+				let source;
+				let target;
+
+				nodeData.forEach((node, i) => {
+					if (node._id === d.source) {
+						source = i;
+					}
+					if (node._id === d.target) {
+						target = i;
+					}
+				});
+
+				if (
+					typeof source !== 'undefined'
+					&& typeof target !== 'undefined'
+				) {
+					linksIndex[source + "," + target] = true;
+					linksIndex[source + "," + source] = true;
+					linksIndex[target + "," + target] = true;
+				}
 			});
 
-			const isConnected = (a,b) => {
-				return linksIndex[a.index + "," + b.index] || linksIndex[b.index + "," + a.index];
-			}
-
-			const mouseOver = (d) => {
-				nodes.style("fill-opacity", (o) => {
-					if (o===d){
-						return 1;
+			const edgeData = [];
+			linkData.forEach(link => {
+				let source;
+				let target;
+				nodeData.forEach((node, i) => {
+					if (node._id === link.source) {
+						source = i;
 					}
-					else return isConnected(o,d) ? 1 : 0.1;
-				});
-				nodes.style("stroke-opacity", (o) => {
-					if (o===d){
-						return 1;
+					if (node._id === link.target) {
+						target = i;
 					}
-					else return isConnected(o,d) ? 1 : 0.1;
-				});
-				links.style("stroke-opacity", (o) => {
-					return o.source === d || o.target === d ? 1 : 0.1;
-				});
-				titleText.style("opacity", (o) => {
-					if (o===d){
-						return 1;
-					}
-					return isConnected(o,d) ? 1 : 0;
-				});
-				titleRects.style("opacity", (o) => {
-					if (o===d){
-						return 1;
-					}
-					return isConnected(o,d) ? 1 : 0;
 				});
 
-				svg.selectAll("g.title").each(function(){
-					this.childNodes.forEach((n) => {
-						if(n.getAttribute("class") === "titleText"){
-							n.parentNode.appendChild(n);
-						}
-					})
-				});
-			}
+				if (
+					typeof source !== 'undefined'
+					&& typeof target !== 'undefined'
+				) {
+					edgeData.push({ source, target });
+				}
+			});
 
-			const mouseOut = () => {
-				nodes.style("stroke-opacity", 1);
-				nodes.style("fill-opacity", 1);
-				links.style("stroke-opacity", 1);
-				titleText.style("opacity", 0);
-				titleRects.style("opacity", 0);
-			}
+			d3.forceSimulation(nodeData)
+				// pull nodes together based on the links between them
+				.force("link", d3.forceLink(edgeData).strength(0.025))
+				// push nodes apart to space them out
+				.force("charge", d3.forceManyBody().strength(-150))
+				// add some collision detection so they don't overlap
+				.force("collide", d3.forceCollide().radius(12))
+				// and draw them around the centre of the space
+				.force("center", d3.forceCenter(width / 2, height / 2))
+				.on('tick', ticked)
+				;
 
 		});
 	}
@@ -355,7 +402,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	handleSetModal: ({ modalOpen, nodeId }) => {
-		console.log(modalOpen, nodeId);
 		dispatch(setModal({ modalOpen, nodeId }));
 	},
 });
