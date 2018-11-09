@@ -17,7 +17,7 @@ const PrimaryImage = ({ file, itemMiradorLink }) => {
 	const isImage = fileType.slice(0, fileType.indexOf('/')) === 'image';
 
 	if (isImage) {
-		const src = `//iiif.orphe.us/${file.name}/full/1000,/0/default.jpg`;
+		const src = `//iiif.orphe.us/${file.name}/full/full/0/default.jpg`;
 
 		const styles = {
 			backgroundImage: `url(${src})`,
