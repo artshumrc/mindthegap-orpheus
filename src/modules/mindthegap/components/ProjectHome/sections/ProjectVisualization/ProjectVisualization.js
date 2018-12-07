@@ -74,7 +74,7 @@ class ProjectVisualization extends React.Component {
 		}
 
 		const dragstarted = (d) => {
-			if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+			// if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 			d.fx = d.x;
 			d.fy = d.y;
 		}
@@ -85,7 +85,7 @@ class ProjectVisualization extends React.Component {
 		}
 
 		const dragended = (d) => {
-			if (!d3.event.active) simulation.alphaTarget(0);
+			// if (!d3.event.active) simulation.alphaTarget(0);
 			d.fx = null;
 			d.fy = null;
 		}
@@ -242,6 +242,7 @@ class ProjectVisualization extends React.Component {
 					.type(d3symbolextra.symbolHexagon)
 					.size((d) => {
 						const scaling = 700;
+						/*
 						if('size' in d){
 							return (d.size * scaling)
 						} else if (
@@ -256,6 +257,7 @@ class ProjectVisualization extends React.Component {
 
 							return count * scaling;
 						}
+						*/
 
 						return scaling > 0 ? scaling : 1;
 					})
@@ -361,9 +363,9 @@ class ProjectVisualization extends React.Component {
 
 			simulation = d3.forceSimulation(nodeData)
 				// pull nodes together based on the links between them
-				.force("link", d3.forceLink(edgeData).strength(0.025))
+				.force("link", d3.forceLink(edgeData).strength(0.05))
 				// push nodes apart to space them out
-				.force("charge", d3.forceManyBody().strength(-150))
+				.force("charge", d3.forceManyBody().strength(-50))
 				// add some collision detection so they don't overlap
 				.force("collide", d3.forceCollide().radius(12))
 				// and draw them around the centre of the space

@@ -35,18 +35,22 @@
   cursor: pointer;
 }
 .event {
-  fill: #ffffff;
-  stroke: #fb9b97
+  fill: #fb9b97;
 }
 .interview {
-  fill: #ff4e48;
+  fill: #ffb248;
 }
 .concept {
   fill: #50e3c2;
 }
 .person {
-  fill: #fb9b97;
+  fill: #2bb3ce;
 }
+
+.item {
+	fill: #c562c5;
+}
+
 .link {
   stroke: #fbfbfb;
 }
