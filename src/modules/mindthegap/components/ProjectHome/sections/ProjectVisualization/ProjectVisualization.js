@@ -208,7 +208,7 @@ class ProjectVisualization extends React.Component {
 		}
 
 		//Eventually change to use Graphql query
-		d3.json("https://mindthegap-api.orphe.us/v1", (error, graph) => {
+		d3.json("//mindthegap-api.orphe.us/v1", (error, graph) => {
 
 			if (error) throw error;
 
