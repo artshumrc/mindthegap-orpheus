@@ -171,11 +171,9 @@ class ProjectVisualization extends React.Component {
 				else return isConnected(o,d) ? 1 : 0.1;
 			});
 
-			/**
-			links.style("stroke-opacity", (o) => {
-				return o.source === d || o.target === d ? 1 : 0.1;
-			});
-			*/
+			// links.style("stroke-opacity", (o) => {
+			// 	return o.source === d || o.target === d ? 1 : 0.1;
+			// });
 
 			titleText.style("opacity", (o) => {
 				if (o===d){
@@ -241,8 +239,9 @@ class ProjectVisualization extends React.Component {
 				.attr("d", d3.symbol()
 					.type(d3symbolextra.symbolHexagon)
 					.size((d) => {
-						const scaling = 700;
+
 						/*
+						const scaling = 700;
 						if('size' in d){
 							return (d.size * scaling)
 						} else if (
@@ -258,8 +257,14 @@ class ProjectVisualization extends React.Component {
 							return count * scaling;
 						}
 						*/
-
-						return scaling > 0 ? scaling : 1;
+						//	return scaling > 0 ? scaling : 1;
+						if (d.type == "person"){
+							return 2000;
+						} else if (d.type=="event") {
+							return 1000;
+						} else {
+							return 500;
+						}
 					})
 			 )
 			 .on("mouseover", mouseOver)
@@ -269,6 +274,46 @@ class ProjectVisualization extends React.Component {
 					.on("start", dragstarted)
 					.on("drag", dragged)
 					.on("end", dragended));
+
+			/** Legend **/
+			var uniqueTypes = new Set();
+
+			var svgLegend = svg.append("svg")
+				.attr("x",50)
+				.attr("y", 50)
+				.attr("width", 200)
+				.attr("height", 400);
+
+			var legendItems = svgLegend.selectAll(".legendItem")
+				.data(nodeData.filter(function(d){
+					var exists = uniqueTypes.has(d.type);
+					uniqueTypes.add(d.type);
+					return !exists;
+				}))
+				.enter().append("g")
+				.attr("class", "legendItem")
+				.attr("transform", function (d, i) {
+					return "translate(30," + (i * 35 + 20) + ")"
+				});
+
+				legendItems.append("path")
+					.attr("x", 0)
+					.attr("y", 0)
+					.attr("class", function(d){
+						return d.type;
+					})
+					.attr("d", d3.symbol()
+						.type(d3symbolextra.symbolHexagon)
+						.size(500));
+
+
+			legendItems.append("text")
+				.attr("x", 20)
+				.attr("y", 5)
+				.text(function(d){
+					return d.type;
+				})
+				.attr("class", "titleText");
 
 			titleText = titles.append("text")
 			.attr("dy", 16)
