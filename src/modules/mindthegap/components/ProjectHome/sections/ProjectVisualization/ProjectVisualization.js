@@ -158,6 +158,7 @@ class ProjectVisualization extends React.Component {
 		}
 
 		const mouseOver = (d) => {
+			//d is moused node, o is all others
 			nodes.style("fill-opacity", (o) => {
 				if (o===d){
 					return 1;
@@ -171,9 +172,9 @@ class ProjectVisualization extends React.Component {
 				else return isConnected(o,d) ? 1 : 0.1;
 			});
 
-			// links.style("stroke-opacity", (o) => {
-			// 	return o.source === d || o.target === d ? 1 : 0.1;
-			// });
+			links.style("stroke-opacity", (o) => {
+				return o.source === d._id || o.target === d._id ? 1 : 0.1;
+			});
 
 			titleText.style("opacity", (o) => {
 				if (o===d){
@@ -221,6 +222,7 @@ class ProjectVisualization extends React.Component {
 				.attr("class", "link")
 				.style("fill", "none")
 				.style('stroke-width', 2);
+
 			nodes = svg.selectAll(".node")
 				.data(nodeData)
 				.enter().append("g")
@@ -296,7 +298,7 @@ class ProjectVisualization extends React.Component {
 					return "translate(30," + (i * 35 + 20) + ")"
 				});
 
-				legendItems.append("path")
+			legendItems.append("path")
 					.attr("x", 0)
 					.attr("y", 0)
 					.attr("class", function(d){
