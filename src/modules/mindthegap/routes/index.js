@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router';
 
+
 // project home
-import ProjectHomeContainer from '../containers/ProjectHomeContainer';
+import ProjectVisualization from '../components/ProjectHome/sections/ProjectVisualization';
 
 
 export default (
@@ -10,7 +11,7 @@ export default (
 		<Route
 			exact
 			path="/"
-			component={ProjectHomeContainer}
+			component={ProjectVisualization}
 		/>
 	</div>
 );
