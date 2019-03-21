@@ -22,6 +22,9 @@ const PersonItemMetaFieldItemsContainer = props => {
 		case 'item':
 			items = props.personItemMetaFieldItemsQuery.project.items;
 			break;
+		case 'storymap':
+			items = props.personItemMetaFieldItemsQuery.project.storymaps;
+			break;
 		default:
 			break;
 		}

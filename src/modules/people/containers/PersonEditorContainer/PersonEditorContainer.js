@@ -22,6 +22,7 @@ class PersonEditorContainer extends React.Component {
 			selectedItems: [],
 			selectedEvents: [],
 			selectedInterviews: [],
+			selectedStorymaps: [],
 		};
 	}
 
@@ -67,6 +68,13 @@ class PersonEditorContainer extends React.Component {
 			) {
 				this.setState({
 					selectedItems: nextProps.personQuery.project.person.items,
+				});
+			if (
+					!this.state.selectedStorymaps.length
+				&& nextProps.personQuery.project.person.storymaps,
+			) {
+				this.setState({
+					selectedStorymaps: nextProps.personQuery.project.person.storymaps,
 				});
 			}
 		}
@@ -130,6 +138,7 @@ class PersonEditorContainer extends React.Component {
 		values.events = [];
 		values.interviews = [];
 		values.items = [];
+		values.storymaps = [];
 
 		// associated joined content
 		this.state.selectedInterviews.forEach(interview => {
@@ -159,6 +168,17 @@ class PersonEditorContainer extends React.Component {
 					values.items.push(item);
 				} else {
 					values.items.push(item._id);
+				}
+			}
+		});
+		this.state.selectedStorymaps.forEach(storymap => {
+			// eliminate null values from being added
+			// TO DO: check if proper src string is given
+			if (storymap) {
+				if (typeof storymap === 'string') {
+					values.storymaps.push(storymap);
+				} else {
+					values.storymaps.push(storymap._id);
 				}
 			}
 		});
@@ -348,7 +368,7 @@ class PersonEditorContainer extends React.Component {
 						}
 						return selectedInterview._id === interview._id
 					}
-					
+
 					return null;
 				}),
 				1
@@ -362,8 +382,49 @@ class PersonEditorContainer extends React.Component {
 		});
 	}
 
+	toggleSelectedStorymap(storymap) {
+		const selectedStorymaps = this.state.selectedStorymaps.slice();
+
+		if (
+			selectedStorymaps.some(selectedStorymap => (
+					selectedStorymap
+				&& (
+					(
+						typeof selectedStorymap === 'string'
+						&& selectedStorymap === storymap._id
+					)
+					||
+					(
+							typeof selectedStorymap === 'object'
+						&& selectedStorymap._id === selectedStorymap._id
+					)
+				)
+			)
+		)) {
+			selectedStorymaps.splice(
+				selectedStorymaps.findIndex(selectedStorymap => {
+					if (selectedStorymap) {
+						if (typeof selectedStorymap === 'string') {
+							return selectedStorymap === storymap._id
+						}
+						return selectedStorymap._id === storymap._id
+					}
+
+					return null;
+				}),
+				1
+			);
+		} else {
+			selectedStorymap.push(storymap);
+		}
+
+		this.setState({
+			selectedStorymaps,
+		});
+	}
+
 	render() {
-		const { files, selectedItems, selectedEvents, selectedInterviews } = this.state;
+		const { files, selectedItems, selectedEvents, selectedInterviews, selectedStorymaps } = this.state;
 
 		let person;
 
@@ -391,6 +452,8 @@ class PersonEditorContainer extends React.Component {
 				toggleSelectedEvent={this.toggleSelectedEvent}
 				selectedInterviews={selectedInterviews}
 				toggleSelectedInterview={this.toggleSelectedInterview}
+				selectedStorymaps={selectedStorymaps}
+				toggleSelectedStorymap={this.toggleSelectedStorymap}
 			/>
 		);
 	}

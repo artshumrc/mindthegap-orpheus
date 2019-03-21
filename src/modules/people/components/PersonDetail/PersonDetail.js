@@ -16,7 +16,7 @@ import './PersonDetail.css';
 
 const PersonDetail = ({
 	_id, name, slug, bio, tags, metadata, files, commentsCount, comments,
-	userIsAdmin, manifest, handleRemove, events, interviews, items,
+	userIsAdmin, manifest, handleRemove, events, interviews, items, storymap
 })=> {
 
 	if (!_id) {
@@ -68,6 +68,12 @@ const PersonDetail = ({
 					label="Items"
 					ids={items}
 					type="item"
+				/>
+
+				<PersonStorymapMetaFieldItemsContainer
+					label="Story Map"
+					ids={storymap}
+					type="storymap"
 				/>
 
 				<Discussion

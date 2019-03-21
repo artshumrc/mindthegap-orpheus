@@ -61,6 +61,13 @@ const ItemMetaField = ({ type, label, value }) => {
 				value={value}
 			/>
 		);
+	case 'storymap':
+		elem = (
+			<ItemMetaFieldItem
+				label={label}
+				value={value}
+			/>
+		);
 		break;
 	default:
 		elem = (
