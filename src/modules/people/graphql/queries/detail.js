@@ -18,7 +18,6 @@ const query = gql`
 				events
 				interviews
 				items
-				storymaps
 
 				metadata {
 					type

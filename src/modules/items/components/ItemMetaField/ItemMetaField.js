@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ItemMetaFieldMap from '../ItemMetaFieldMap';
 import ItemMetaFieldMedia from '../ItemMetaFieldMedia';
 import ItemMetaFieldItem from '../ItemMetaFieldItem';
-
+import ItemMetaFieldStoryMap from '../ItemMetaFieldStoryMap';
 
 import './ItemMetaField.css';
 
@@ -61,9 +61,10 @@ const ItemMetaField = ({ type, label, value }) => {
 				value={value}
 			/>
 		);
+		break;
 	case 'storymap':
 		elem = (
-			<ItemMetaFieldItem
+			<ItemMetaFieldStoryMap
 				label={label}
 				value={value}
 			/>

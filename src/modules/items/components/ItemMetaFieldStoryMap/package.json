@@ -1,0 +1,6 @@
+{
+  "name": "ItemMetaFieldStoryMap",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ItemMetaFieldStoryMap.js"
+}

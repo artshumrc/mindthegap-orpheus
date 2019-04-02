@@ -10,6 +10,7 @@ const ItemMetaFieldItem = ({ label, value, type, noResultsMessage })=> {
 	let items = [];
 
 	if (value) {
+		console.log(value);
 		if (typeof value === 'string') {
 			items = JSON.parse(value);
 		} else if (Array.isArray(value)) {
@@ -18,6 +19,7 @@ const ItemMetaFieldItem = ({ label, value, type, noResultsMessage })=> {
 			console.error('Unknown data type passed to ItemMetaFieldItem');
 		}
 	}
+
 
 	return (
 		<div className="itemMetaField">

@@ -18,7 +18,7 @@ const maxLength200000 = maxLength(200000);
 class PersonEditor extends React.Component {
 
 	render() {
-		const { person, files, metadata, selectedItems, selectedEvents, selectedInterviews, selectedStorymaps } = this.props;
+		const { person, files, metadata, selectedItems, selectedEvents, selectedInterviews } = this.props;
 
 		return (
 			<div className="personEditor">
@@ -97,15 +97,6 @@ class PersonEditor extends React.Component {
 						<ItemSelectorField
 							collectionName="items"
 							selectedItems={selectedItems}
-							toggleSelectedItem={this.props.toggleSelectedItem}
-						/>
-					</div>
-
-					<div className="personEditorFormInputOuter personEditorFormInputOuterMetadata">
-						<label>Associate a Story Map with this person.</label>
-						<ItemSelectorField
-							collectionName="storymap"
-							selectedItems={storymaps}
 							toggleSelectedItem={this.props.toggleSelectedItem}
 						/>
 					</div>

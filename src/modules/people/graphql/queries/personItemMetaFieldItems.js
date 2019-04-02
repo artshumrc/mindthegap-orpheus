@@ -44,13 +44,6 @@ const query = gql`
 				}
 			}
 
-			storymaps(_ids: $ids) {
-				_id
-				title
-				description
-				source
-			}
-
 		}
 	}
 `;

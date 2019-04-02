@@ -60,6 +60,7 @@ class MetadataField extends React.Component {
 							<option value="place">Place</option>
 							<option value="media">Media</option>
 							<option value="item">Item</option>
+							<option value="storymap">Story Map</option>
 						</Field>
 					</Col>
 					<Col md={2}>

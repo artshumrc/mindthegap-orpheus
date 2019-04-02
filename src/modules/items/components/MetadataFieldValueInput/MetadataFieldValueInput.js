@@ -167,6 +167,16 @@ class MetadataFieldValueInput extends React.Component {
 				/>
 			);
 			break;
+		case 'storymap':
+			elem = (
+				<Field
+					name={`${field}.value`}
+					type="url" //iframe? link?
+					component="input"
+					placeholder="Story map url. . . "
+				/>
+			);
+			break;
 		default:
 			elem = (
 				<Field
