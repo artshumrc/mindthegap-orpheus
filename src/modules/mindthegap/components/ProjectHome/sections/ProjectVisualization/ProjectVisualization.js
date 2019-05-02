@@ -276,7 +276,7 @@ class ProjectVisualization extends React.Component {
 					.on("start", dragstarted)
 					.on("drag", dragged)
 					.on("end", dragended));
-
+			console.log(nodes);
 			/** Legend **/
 			var uniqueTypes = new Set();
 
@@ -285,6 +285,9 @@ class ProjectVisualization extends React.Component {
 				.attr("y", 50)
 				.attr("width", 200)
 				.attr("height", 400);
+
+			console.log("DATA");
+			console.log(nodeData);
 
 			var legendItems = svgLegend.selectAll(".legendItem")
 				.data(nodeData.filter(function(d){
@@ -337,6 +340,9 @@ class ProjectVisualization extends React.Component {
 			.on("dblclick", nodeDblClicked);
 
 			titleText.each(function(d){
+				console.log("tt");
+				console.log(d);
+				console.log(this);
 				d.bb = this.getBBox();
 			});
 
@@ -407,6 +413,9 @@ class ProjectVisualization extends React.Component {
 					edgeData.push({ source, target });
 				}
 			});
+			console.log(edgeData);
+			// console.log(linkData);
+			// console.log(linksIndex);
 
 			simulation = d3.forceSimulation(nodeData)
 				// pull nodes together based on the links between them

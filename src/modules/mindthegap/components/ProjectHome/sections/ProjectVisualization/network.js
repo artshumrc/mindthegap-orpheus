@@ -220,6 +220,8 @@ Network.prototype.updateVis = function(){
 
 	const mouseOver = (d) => {
      //d is moused node, o is all others
+		 // Need to handle mouseover titles better ... collision. Maybe only on node?
+		 // Also: set a delay on
 		vis.nodes.style("fill-opacity", (o) => {
 			if (o===d){
 				return 1;
@@ -240,8 +242,10 @@ Network.prototype.updateVis = function(){
 		vis.titleText.style("opacity", (o) => {
 			if (o===d){
 				return 1;
+			} else {
+				return isConnected(o,d) ? 1 : 0;
 			}
-			return isConnected(o,d) ? 1 : 0;
+
 		});
 		vis.titleRects.style("opacity", (o) => {
 			if (o===d){
@@ -295,7 +299,14 @@ Network.prototype.updateVis = function(){
 	return(d.type)
 })
 			.attr("d", d3.symbol()
-				.type(d3.symbolHexagon) //d3symbolextra in React
+				.type((d) => {
+               if(d.type == "archive"){
+                  return d3.symbolHexagonAlt; //Give archives a different shape
+               }
+               else {
+                  return d3.symbolHexagon;
+								}
+            }) //d3symbolextra in React
 				.size((d) => {
 					/*
 					const scaling = 700;
@@ -346,7 +357,7 @@ Network.prototype.updateVis = function(){
 			})
 			.attr("class","titleText")
 			.style("opacity", 0)
-			.on("mouseover", mouseOver)
+			//.on("mouseover", mouseOver)
 			.on("mouseout", mouseOut)
 			.on("dblclick", nodeDblClicked);
 
@@ -374,7 +385,7 @@ Network.prototype.updateVis = function(){
       		.style("stroke", "#ffffff")
       		.attr("class", "titleRect")
       		.style("opacity", 0)
-      		.on("mouseover", mouseOver)
+      		//.on("mouseover", mouseOver)
       		.on("mouseout", mouseOut)
       		.on("dblclick", nodeDblClicked)
       		.call(
