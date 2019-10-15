@@ -424,10 +424,14 @@ class ProjectVisualization extends React.Component {
 	}
 
 	async handleNodeDoubleClick(d) {
+		/**
+		TODO: reimplement modal interaction if required, but will make division between codebases a little more tricky
 		await this.props.handleSetModal({
 			modalOpen: true,
 			nodeId: d._id,
 		});
+		*/
+		window.location = `https://mindthegap.orphe.us/items/${d._id}/`;
 	}
 
 	render() {
