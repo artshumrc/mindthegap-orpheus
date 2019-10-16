@@ -3,10 +3,15 @@ import createRef from 'create-react-ref/lib/createRef';
 import * as d3 from "d3v4"
 import * as d3symbolextra from 'd3-symbol-extra'
 import { connect } from 'react-redux';
+import { compose } from 'react-apollo';
 import autoBind from 'react-autobind';
 
 // redux
 import { setModal } from '../../../../actions';
+
+// api
+import graphDataQuery from '../../../../graphql/queries/graphDataQuery';
+
 
 import './ProjectVisualization.css'
 
@@ -18,12 +23,14 @@ class ProjectVisualization extends React.Component {
 		autoBind(this);
 	}
 
-	componentDidMount() {
+	componentDidUpdate() {
 		//Todo: figure out how to pass state and set width / height through this correctly
 		//const el = this.myRef;
 		//this.setState({ width: el.current.parentNode.offsetWidth, height: el.current.parentNode.offsetHeight });
 
-		this.createMTGVis();
+		if (this.props.graphDataQuery && !this.props.graphDataQuery.loading) {
+			this.createMTGVis();
+		}
 
 		// TODO: implement visualization resize
 		//window.addEventListener("resize", this.resizeVisualization);
@@ -51,7 +58,7 @@ class ProjectVisualization extends React.Component {
 		};
 
 		//Toggle modal based on ID
-		const nodeDblClicked = (d) => {
+		const nodeClicked = (d) => {
 			this.handleNodeDoubleClick(d);
 		}
 
@@ -207,85 +214,146 @@ class ProjectVisualization extends React.Component {
 		}
 
 		//Eventually change to use Graphql query
-		d3.json("//mindthegap-api.orphe.us/v1", (error, graph) => {
+		const graph = { nodes: [], edges: [] };
+		let type = '';
 
-			if (error) throw error;
+		if (this.props.graphDataQuery && this.props.graphDataQuery.project) {
+			this.props.graphDataQuery.project.items.forEach(item => {
+				let type = 'item';
+				item.metadata.forEach(metaValue => {
+					if (metaValue.label === 'Type') {
 
-			// bind nodes and edges
-			nodeData = graph.nodes;
-			linkData = graph.edges;
-
-			links = svg.selectAll(".link")
-				.data(linkData)
-				.enter()
-				.append("path")
-				.attr("class", "link")
-				.style("fill", "none")
-				.style('stroke-width', 2);
-
-			nodes = svg.selectAll(".node")
-				.data(nodeData)
-				.enter().append("g")
-				.attr("class", "node");
-			titles = svg.selectAll(".title")
-				.data(nodeData)
-				.enter().append("g")
-				.attr("class", "title");
-
-			nodes.append("path")
-				.attr("class", "node")
-				.attr("class", (d) => {
-						//return ("node " + "person");//d.type);
-					return(d.type)
-				})
-				.attr("d", d3.symbol()
-					.type(d3symbolextra.symbolHexagon)
-					.size((d) => {
-
-						/*
-						const scaling = 700;
-						if('size' in d){
-							return (d.size * scaling)
-						} else if (
-								d.hasOwnProperty("items")
-							|| d.hasOwnProperty("interviews")
-							|| d.hasOwnProperty("events")
-						){
-							let count = 0;
-							if (d.hasOwnProperty("items")){count += d.items.length; }
-							if (d.hasOwnProperty("interviews")){ count += d.interviews.length; }
-							if (d.hasOwnProperty("events")){ count += d.events.length; }
-
-							return count * scaling;
-						}
-						*/
-						//	return scaling > 0 ? scaling : 1;
-						if (d.type == "person"){
-							return 2000;
-						} else if (d.type=="event") {
-							return 1000;
+						if (metaValue.value.toLowerCase() === "Item") {
+							type = "item";
 						} else {
-							return 500;
+							type = metaValue.value.toLowerCase();
 						}
-					})
-			 )
-			 .on("mouseover", mouseOver)
-			 .on("mouseout", mouseOut)
-			 .on("dblclick", nodeDblClicked)
-			 .call(d3.drag()
-					.on("start", dragstarted)
-					.on("drag", dragged)
-					.on("end", dragended));
+					}
+				});
+				graph.nodes.push({ _id: item._id, title: item.title, type });
+			});
 
-			/** Legend **/
-			var uniqueTypes = new Set();
+			this.props.graphDataQuery.project.items.forEach(item => {
+				item.metadata.forEach(metaValue => {
+					if (metaValue.type === "item") {
+						let parsedVal;
+						try {
+							parsedVal = JSON.parse(metaValue.value);
+							parsedVal.forEach(val => {
+								if ("_id" in val) {
+									graph.edges.push({
+										source: item._id,
+										target: val._id,
+									});
+								} else if ("value" in val) {
+									graph.edges.push({
+										source: item._id,
+										target: val.value,
+									});
+								}
+							});
 
-			var svgLegend = svg.append("svg")
-				.attr("x",50)
-				.attr("y", 50)
-				.attr("width", 200)
-				.attr("height", 400);
+						} catch (err) {
+							try {
+								parsedVal = JSON.parse(metaValue.value);
+								parsedVal.forEach(val => {
+									if ("_id" in val) {
+										graph.edges.push({
+											source: item._id,
+											target: val._id,
+										});
+									} else if ("value" in val) {
+										graph.edges.push({
+											source: item._id,
+											target: val.value,
+										});
+									}
+								});
+							} catch (error) {
+								console.error(error);
+							}
+						}
+					}
+				});
+			});
+		}
 
+		// bind nodes and edges
+		nodeData = graph.nodes.slice();
+		linkData = graph.edges.slice();
+
+		links = svg.selectAll(".link")
+			.data(linkData)
+			.enter()
+			.append("path")
+			.attr("class", "link")
+			.style("fill", "none")
+			.style('stroke-width', 2);
+
+		nodes = svg.selectAll(".node")
+			.data(nodeData)
+			.enter().append("g")
+			.attr("class", "node");
+		titles = svg.selectAll(".title")
+			.data(nodeData)
+			.enter().append("g")
+			.attr("class", "title");
+
+		nodes.append("path")
+			.attr("class", "node")
+			.attr("class", (d) => {
+					//return ("node " + "person");//d.type);
+				return(d.type)
+			})
+			.attr("d", d3.symbol()
+				.type(d3symbolextra.symbolHexagon)
+				.size((d) => {
+
+					/*
+					const scaling = 700;
+					if('size' in d){
+						return (d.size * scaling)
+					} else if (
+							d.hasOwnProperty("items")
+						|| d.hasOwnProperty("interviews")
+						|| d.hasOwnProperty("events")
+					){
+						let count = 0;
+						if (d.hasOwnProperty("items")){count += d.items.length; }
+						if (d.hasOwnProperty("interviews")){ count += d.interviews.length; }
+						if (d.hasOwnProperty("events")){ count += d.events.length; }
+
+						return count * scaling;
+					}
+					*/
+					//	return scaling > 0 ? scaling : 1;
+					if (d.type == "person"){
+						return 2000;
+					} else if (d.type=="event") {
+						return 1000;
+					} else {
+						return 500;
+					}
+				})
+		 )
+		 .on("mouseover", mouseOver)
+		 .on("mouseout", mouseOut)
+		 .on("click", nodeClicked)
+		 .call(d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged)
+				.on("end", dragended));
+
+		/** Legend **/
+		var uniqueTypes = new Set();
+
+		var svgLegend = svg.append("svg")
+			.attr("x", 0)
+			.attr("y", 0)
+			.attr("width", 200)
+			.attr("height", window.innerHeight);
+
+		if (window.innerHeight > 500) {
 			var legendItems = svgLegend.selectAll(".legendItem")
 				.data(nodeData.filter(function(d){
 					var exists = uniqueTypes.has(d.type);
@@ -295,7 +363,7 @@ class ProjectVisualization extends React.Component {
 				.enter().append("g")
 				.attr("class", "legendItem")
 				.attr("transform", function (d, i) {
-					return "translate(30," + (i * 35 + 20) + ")"
+					return "translate(30," + (window.innerHeight - 10 - (i * 35 + 20)) + ")"
 				});
 
 			legendItems.append("path")
@@ -316,8 +384,9 @@ class ProjectVisualization extends React.Component {
 					return d.type;
 				})
 				.attr("class", "titleText");
+		}
 
-			titleText = titles.append("text")
+		titleText = titles.append("text")
 			.attr("dy", 16)
 			.attr("dx", (rectWidthPad/2))
 			// .text((d) => { return d.id })
@@ -334,103 +403,96 @@ class ProjectVisualization extends React.Component {
 			.style("opacity", 0)
 			.on("mouseover", mouseOver)
 			.on("mouseout", mouseOut)
-			.on("dblclick", nodeDblClicked);
+			.on("click", nodeClicked)
+			;
 
-			titleText.each(function(d){
-				d.bb = this.getBBox();
-			});
-
-			titleRects = titles.append("rect")
-				.attr("width", (d) => {
-					return d.bb.width + rectWidthPad;
-				})
-				.attr("height", (d) => {
-					return d.bb.height + rectHeightPad;
-				})
-			.attr("rx", 5)
-			.attr("ry", 5)
-			.style("fill", "#4a4a4a")
-			.style("stroke", "#ffffff")
-			.attr("class", "titleRect")
-			.style("opacity", 0)
-			.on("mouseover", mouseOver)
-			.on("mouseout", mouseOut)
-			.on("dblclick", nodeDblClicked)
-			.call(
-				d3.drag()
-					.on("start", dragstarted)
-					.on("drag", dragged)
-					.on("end", dragended)
-			);
-
-			linksIndex = {};
-			linkData.forEach((d) => {
-				let source;
-				let target;
-
-				nodeData.forEach((node, i) => {
-					if (node._id === d.source) {
-						source = i;
-					}
-					if (node._id === d.target) {
-						target = i;
-					}
-				});
-
-				if (
-					typeof source !== 'undefined'
-					&& typeof target !== 'undefined'
-				) {
-					linksIndex[source + "," + target] = true;
-					linksIndex[source + "," + source] = true;
-					linksIndex[target + "," + target] = true;
-				}
-			});
-
-			const edgeData = [];
-			linkData.forEach(link => {
-				let source;
-				let target;
-				nodeData.forEach((node, i) => {
-					if (node._id === link.source) {
-						source = i;
-					}
-					if (node._id === link.target) {
-						target = i;
-					}
-				});
-
-				if (
-					typeof source !== 'undefined'
-					&& typeof target !== 'undefined'
-				) {
-					edgeData.push({ source, target });
-				}
-			});
-
-			simulation = d3.forceSimulation(nodeData)
-				// pull nodes together based on the links between them
-				.force("link", d3.forceLink(edgeData).strength(0.05))
-				// push nodes apart to space them out
-				.force("charge", d3.forceManyBody().strength(-50))
-				// add some collision detection so they don't overlap
-				.force("collide", d3.forceCollide().radius(12))
-				// and draw them around the centre of the space
-				.force("center", d3.forceCenter(width / 2, height / 2))
-				.on('tick', ticked)
-				;
-
+		titleText.each(function(d){
+			d.bb = this.getBBox();
 		});
+
+		titleRects = titles.append("rect")
+			.attr("width", (d) => {
+				return d.bb.width + rectWidthPad;
+			})
+			.attr("height", (d) => {
+				return d.bb.height + rectHeightPad;
+			})
+		.attr("rx", 5)
+		.attr("ry", 5)
+		.style("fill", "#4a4a4a")
+		.style("stroke", "#ffffff")
+		.attr("class", "titleRect")
+		.style("opacity", 0)
+		.on("mouseover", mouseOver)
+		.on("mouseout", mouseOut)
+		.on("click", nodeClicked)
+		.call(
+			d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged)
+				.on("end", dragended)
+		);
+
+		linksIndex = {};
+		linkData.forEach((d) => {
+			let source;
+			let target;
+
+			nodeData.forEach((node, i) => {
+				if (node._id === d.source) {
+					source = i;
+				}
+				if (node._id === d.target) {
+					target = i;
+				}
+			});
+
+			if (
+				typeof source !== 'undefined'
+				&& typeof target !== 'undefined'
+			) {
+				linksIndex[source + "," + target] = true;
+				linksIndex[source + "," + source] = true;
+				linksIndex[target + "," + target] = true;
+			}
+		});
+
+		const edgeData = [];
+		linkData.forEach(link => {
+			let source;
+			let target;
+			nodeData.forEach((node, i) => {
+				if (node._id === link.source) {
+					source = i;
+				}
+				if (node._id === link.target) {
+					target = i;
+				}
+			});
+
+			if (
+				typeof source !== 'undefined'
+				&& typeof target !== 'undefined'
+			) {
+				edgeData.push({ source, target });
+			}
+		});
+
+		simulation = d3.forceSimulation(nodeData)
+			// pull nodes together based on the links between them
+			.force("link", d3.forceLink(edgeData).strength(0.05))
+			// push nodes apart to space them out
+			.force("charge", d3.forceManyBody().strength(-50))
+			// add some collision detection so they don't overlap
+			.force("collide", d3.forceCollide().radius(12))
+			// and draw them around the centre of the space
+			.force("center", d3.forceCenter(width / 2, height / 2))
+			.on('tick', ticked)
+			;
+
 	}
 
 	async handleNodeDoubleClick(d) {
-		/**
-		TODO: reimplement modal interaction if required, but will make division between codebases a little more tricky
-		await this.props.handleSetModal({
-			modalOpen: true,
-			nodeId: d._id,
-		});
-		*/
 		window.location = `https://mindthegap.orphe.us/items/${d._id}/`;
 	}
 
@@ -460,7 +522,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(
+export default compose(
+	graphDataQuery,
+	connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(ProjectVisualization);
+))(ProjectVisualization);

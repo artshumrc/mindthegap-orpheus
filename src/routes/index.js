@@ -45,34 +45,5 @@ export default (
 		{/* Home Route for orphe.us */}
 		{homeRoute}
 
-		{/* Routes for articles */}
-		{articleRoutes}
-
-		{/* Routes for collections */}
-		{collectionRoutes}
-
-		{/* Routes for items */}
-		{itemRoutes}
-		{eventRoutes}
-		{interviewRoutes}
-		{peopleRoutes}
-
-		{/* Routes for texts */}
-		{textRoutes}
-
-		{/* Routes for dashboard */}
-		{dashboardRoutes}
-
-		{/* Routes for users */}
-		{userRoutes}
-
-		{/* Routes specific to projects (and collections and items) */}
-		{/* projectRoutes */}
-
-		{/* Authentication routes */}
-		{authRoutes}
-
-		{/* Routes for single pages */}
-		{pageRoutes}
 	</div>
 );
